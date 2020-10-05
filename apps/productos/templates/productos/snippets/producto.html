@@ -1,0 +1,8 @@
+<div class="card">
+  <img src="{{ producto.imagen.url }}" alt="Imagen" height="300">
+  <div class="card-body">
+    <h5 class="card-title">{{ producto.titulo }}</h5>
+    <p class="card-text">{{ producto.descripcion | truncatechars:30 }}</p>
+    <a href="#" class="btn btn-primary">Ver más</a>
+  </div>
+</div>
