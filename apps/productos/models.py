@@ -4,15 +4,19 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 
+from apps.categorias.models import Categoria
+
 
 class TipoUnidadPeso(models.TextChoices):
-    GRAMO = 'GRAMO'
-    KILO = 'KILO'
-    LITRO = 'LITRO'
+    GRAMO = 'Gramo'
+    KILO = 'Kilo'
+    MILILITRO = 'Mililitro'
+    LITRO = 'Litro'
 
 
 class Producto(models.Model):
     titulo = models.CharField(max_length=50, blank=False, null=False)
+    categoria = models.ForeignKey(Categoria, blank=False, null=False, on_delete=models.CASCADE)
     descripcion = models.TextField()
     peso = models.DecimalField(max_digits=8, decimal_places=2, blank=False, null=False)
     unidad_peso = models.CharField(max_length=50, choices=TipoUnidadPeso.choices, blank=False, null=False)

@@ -1,0 +1,114 @@
+[
+{
+  "model": "productos.producto",
+  "pk": 1,
+  "fields": {
+    "titulo": "Leche La Serenisima",
+    "categoria": 1,
+    "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit arcu a turpis finibus, feugiat varius leo euismod. Mauris vel libero ut tellus semper cursus. In id maximus turpis. Pellentesque dignissim blandit placerat. Quisque consectetur risus gravida augue sollicitudin tempor. In neque sem, mollis vitae urna vitae, semper blandit tortor. Sed semper id risus id aliquet. Donec mauris mauris, dignissim id enim sed, auctor convallis ex. Nulla vitae quam arcu.",
+    "peso": "1.00",
+    "unidad_peso": "Litro",
+    "precio": "30.50",
+    "oferta": true,
+    "imagen": "productos/leche-la-serenisima_InPuQca.jpg",
+    "slug": "leche-la-serenisima",
+    "fecha_creacion": "2020-10-05T00:20:28.211Z"
+  }
+},
+{
+  "model": "productos.producto",
+  "pk": 2,
+  "fields": {
+    "titulo": "Crema Chantilly La Serenisima",
+    "categoria": 1,
+    "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit arcu a turpis finibus, feugiat varius leo euismod. Mauris vel libero ut tellus semper cursus. In id maximus turpis. Pellentesque dignissim blandit placerat. Quisque consectetur risus gravida augue sollicitudin tempor. In neque sem, mollis vitae urna vitae, semper blandit tortor. Sed semper id risus id aliquet. Donec mauris mauris, dignissim id enim sed, auctor convallis ex. Nulla vitae quam arcu.",
+    "peso": "250.00",
+    "unidad_peso": "Gramo",
+    "precio": "150.45",
+    "oferta": true,
+    "imagen": "productos/chantilly-serenisima.jpg",
+    "slug": "crema-chantilly-la-serenisima",
+    "fecha_creacion": "2020-10-05T23:59:50.715Z"
+  }
+},
+{
+  "model": "productos.producto",
+  "pk": 3,
+  "fields": {
+    "titulo": "Crema La Serenisima",
+    "categoria": 1,
+    "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit arcu a turpis finibus, feugiat varius leo euismod. Mauris vel libero ut tellus semper cursus. In id maximus turpis. Pellentesque dignissim blandit placerat. Quisque consectetur risus gravida augue sollicitudin tempor. In neque sem, mollis vitae urna vitae, semper blandit tortor. Sed semper id risus id aliquet. Donec mauris mauris, dignissim id enim sed, auctor convallis ex. Nulla vitae quam arcu.",
+    "peso": "330.00",
+    "unidad_peso": "Litro",
+    "precio": "49.59",
+    "oferta": true,
+    "imagen": "productos/crema-serenisima.jpg",
+    "slug": "crema-la-serenisima",
+    "fecha_creacion": "2020-10-06T00:00:22.001Z"
+  }
+},
+{
+  "model": "productos.producto",
+  "pk": 4,
+  "fields": {
+    "titulo": "Dulce de leche Sancor",
+    "categoria": 1,
+    "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit arcu a turpis finibus, feugiat varius leo euismod. Mauris vel libero ut tellus semper cursus. In id maximus turpis. Pellentesque dignissim blandit placerat. Quisque consectetur risus gravida augue sollicitudin tempor. In neque sem, mollis vitae urna vitae, semper blandit tortor. Sed semper id risus id aliquet. Donec mauris mauris, dignissim id enim sed, auctor convallis ex. Nulla vitae quam arcu.",
+    "peso": "1.00",
+    "unidad_peso": "Kilo",
+    "precio": "260.90",
+    "oferta": true,
+    "imagen": "productos/ddl-sancor-1kg.jpg",
+    "slug": "dulce-de-leche-sancor",
+    "fecha_creacion": "2020-10-06T00:00:43.125Z"
+  }
+},
+{
+  "model": "productos.producto",
+  "pk": 5,
+  "fields": {
+    "titulo": "Yogurt Cremix",
+    "categoria": 1,
+    "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere urna at ex placerat, quis feugiat turpis mollis. Integer bibendum ligula dolor, vitae euismod felis tempor pulvinar. Morbi volutpat pretium ipsum, non auctor arcu posuere sed. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam vel nunc posuere, viverra nulla id, commodo turpis. Maecenas auctor tellus ac urna sollicitudin rhoncus. Pellentesque vitae fermentum neque, eu bibendum urna. Mauris a condimentum est. Aenean eu risus iaculis, sollicitudin tortor eget, convallis nulla. Donec at sodales neque, sed rutrum leo.",
+    "peso": "480.00",
+    "unidad_peso": "Gramo",
+    "precio": "120.36",
+    "oferta": true,
+    "imagen": "productos/yogurt-cremix.jpg",
+    "slug": "yogurt-cremix",
+    "fecha_creacion": "2020-10-06T00:06:37.598Z"
+  }
+},
+{
+  "model": "productos.producto",
+  "pk": 6,
+  "fields": {
+    "titulo": "Yogurt Firme",
+    "categoria": 1,
+    "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere urna at ex placerat, quis feugiat turpis mollis. Integer bibendum ligula dolor, vitae euismod felis tempor pulvinar. Morbi volutpat pretium ipsum, non auctor arcu posuere sed. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam vel nunc posuere, viverra nulla id, commodo turpis. Maecenas auctor tellus ac urna sollicitudin rhoncus. Pellentesque vitae fermentum neque, eu bibendum urna. Mauris a condimentum est. Aenean eu risus iaculis, sollicitudin tortor eget, convallis nulla. Donec at sodales neque, sed rutrum leo.",
+    "peso": "190.00",
+    "unidad_peso": "Gramo",
+    "precio": "29.80",
+    "oferta": false,
+    "imagen": "productos/yogurt-firme.jpg",
+    "slug": "yogurt-firme",
+    "fecha_creacion": "2020-10-06T00:07:07.162Z"
+  }
+},
+{
+  "model": "productos.producto",
+  "pk": 7,
+  "fields": {
+    "titulo": "Yogurt Griego",
+    "categoria": 1,
+    "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere urna at ex placerat, quis feugiat turpis mollis. Integer bibendum ligula dolor, vitae euismod felis tempor pulvinar. Morbi volutpat pretium ipsum, non auctor arcu posuere sed. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam vel nunc posuere, viverra nulla id, commodo turpis. Maecenas auctor tellus ac urna sollicitudin rhoncus. Pellentesque vitae fermentum neque, eu bibendum urna. Mauris a condimentum est. Aenean eu risus iaculis, sollicitudin tortor eget, convallis nulla. Donec at sodales neque, sed rutrum leo.",
+    "peso": "100.00",
+    "unidad_peso": "Gramo",
+    "precio": "50.69",
+    "oferta": false,
+    "imagen": "productos/yogurt-griego-serenisima.jpg",
+    "slug": "yogurt-griego",
+    "fecha_creacion": "2020-10-06T00:07:33.282Z"
+  }
+}
+]

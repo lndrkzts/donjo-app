@@ -1,6 +1,14 @@
-<div class="row">
+<!-- <div class="row">
   {% for producto in lista_productos %}
-    <div class="col-3 mt-5">
+    <div class="col-lg-3 col-md-4 col-sm-5 mt-5">
+      {% include 'productos/snippets/producto.html' with producto=producto %}
+    </div>
+  {% endfor %}
+</div> -->
+
+<div class="card-group">
+  {% for producto in lista_productos %}
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-3">
       {% include 'productos/snippets/producto.html' with producto=producto %}
     </div>
   {% endfor %}

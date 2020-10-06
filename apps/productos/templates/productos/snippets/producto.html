@@ -1,8 +1,10 @@
 <div class="card">
-  <img src="{{ producto.imagen.url }}" alt="Imagen" height="300">
+  <img src="{{ producto.imagen.url }}" class="img-thumbnail" alt="Imagen">
   <div class="card-body">
     <h5 class="card-title">{{ producto.titulo }}</h5>
-    <p class="card-text">{{ producto.descripcion | truncatechars:30 }}</p>
-    <a href="#" class="btn btn-primary">Ver más</a>
+    <p class="card-text">{{ producto.descripcion | truncatechars:55 }}</p>
+    <p class="card-text">{{ producto.peso }} {{ producto.unidad_peso }} - ${{ producto.precio}} </p>
+    <p class="card-text"></p>
+      <a href="#" class="btn btn-primary">Ver más</a>
   </div>
 </div>

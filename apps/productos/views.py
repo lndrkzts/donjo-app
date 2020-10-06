@@ -2,10 +2,32 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 
 from .models import Producto
+from apps.categorias.models import Categoria
 
 
 class ProductosEnOfertaListView(ListView):
-  template_name = 'productos/listado_productos.html'
-  context_object_name = 'lista_productos'
-  queryset = Producto.objects.all()
-  paginate_by = 3
+    template_name = 'productos/listado_productos.html'
+    context_object_name = 'lista_productos'
+    queryset = Producto.objects.filter(oferta=True)
+    paginate_by = 12
+
+
+class ProductosPorCategoriaListView(ListView):
+    template_name = 'productos/listado_productos_por_categoria.html'
+    context_object_name = 'lista_productos'
+    paginate_by = 12
+
+    def get_slug_categoria(self):
+        return self.kwargs['slug_categoria']
+
+    def get_nombre_categoria(self):
+        return Categoria.objects.filter(slug=self.get_slug_categoria()).first().nombre
+
+    def get_queryset(self):
+        return Producto.objects.filter(categoria__slug=self.get_slug_categoria())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['nombre_categoria'] = self.get_nombre_categoria()
+        context['cantidad_productos'] = context['lista_productos'].count()
+        return context
