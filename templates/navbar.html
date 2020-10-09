@@ -3,7 +3,7 @@
 {% url 'usuarios:iniciar_sesion' as iniciar_sesion %}
 {% url 'usuarios:cerrar_sesion' as cerrar_sesion %}
 
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+<nav class="navbar navbar-expand-md navbar-light">
   <a href="{% url 'index' %}" class="navbar-brand">Donjo-APP</a>
 
   <button type="button" name="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse"
@@ -77,7 +77,7 @@
       <li class="navbar-item">
         <a href="{{ registrarse }}" class="nav-link {% if request.path == registrarse %} active {% endif %}">
           <span class="fas fa-user-plus"></span>
-          Registro
+          Registrarse
         </a>
       </li>
       {% endif %}

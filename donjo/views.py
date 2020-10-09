@@ -1,15 +1,12 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 
+from apps.productos.models import Producto
+
 
 def index(request):
-    # if not request.user.is_authenticated:
-    #     return redirect('users:login')
-
-    # products = Product.objects.all().order_by('-id')
+    productos = Producto.objects.order_by('?')[0:3]
 
     return render(request, 'index.html', {
-        'head_title': 'Productos',
-        'body_title': 'Listado de productos',
-        # 'products': products
+        'lista_productos': productos
     })
