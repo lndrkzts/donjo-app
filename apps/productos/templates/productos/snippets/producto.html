@@ -4,7 +4,11 @@
     <h5 class="card-title">{{ producto.titulo }}</h5>
     <p class="card-text">{{ producto.descripcion | truncatechars:55 }}</p>
     <p class="card-text">{{ producto.peso }} {{ producto.unidad_peso }} </p>
-    <p class="card-text">${{ producto.precio}} </p>
+    <p class="card-text">
+      <span class="text-success">
+        ${{ producto.precio}}
+      </span>
+    </p>
   </div>
   <div class="card-footer">
     <a href="{% url 'productos:producto' producto.slug %}" class="btn btn-primary">Ver más</a>
