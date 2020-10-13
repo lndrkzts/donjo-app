@@ -2,16 +2,20 @@
 
 {% block content %}
 
-<div class="col-lg-12 col-md-12 col-sm-12 mb-3">
+<div class="col-lg-12 col-md-12 col-sm-12">
   <h2 class="text-center">Bienvenido!</h4>
 </div>
 
-<div class="col-lg-12 col-md-12 col-sm-12">
+<div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+  {% include 'productos/snippets/barra_busqueda.html' %}
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 mt-3">
   {% include 'snippets/carousel.html' %}
 </div>
 
-<div class="col-lg-12 col-md-12 col-sm-12 mt-3 text-center">
-  <h4>
+<div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+  <h4 class="text-center">
     <b>Tal vez te podría interesar...</b>
   </h4>
 </div>

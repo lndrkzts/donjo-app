@@ -1,0 +1,10 @@
+<form action="{% url 'productos:busqueda' %}">
+    <div class="input-group">
+        <input type="text" name="q" value="{% if query %}{{ query }}{% endif %}" 
+            class="form-control" 
+            placeholder="Ingrese un nombre o categoria para realizar una búsqueda...">
+        <div class="input-group-append">
+            <input type="submit" value="Buscar" class="btn btn-primary">
+        </div>
+    </div>
+</form>

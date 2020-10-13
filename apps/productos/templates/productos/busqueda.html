@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col">
+    <p>Resultados para: {{ query }} ({{ cantidad_productos }}) </p>
+    {% if lista_productos %}
+        {% include 'productos/snippets/lista_productos.html' %}
+    {% else %}
+        <h2>No se encontraron resultados</h2>
+    {% endif %}
+</div>
+{% endblock %}

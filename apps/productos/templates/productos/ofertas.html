@@ -2,7 +2,8 @@
 
 {% block content %}
 <div class="col">
-    <!-- <p>Resultados para: {{ query }} ({{ count }}) </p> -->
+    <h2>Ofertas</h2>
+    <label>Resultados: {{ cantidad_productos }}</label>
     {% include 'productos/snippets/lista_productos.html' %}
 </div>
 {% endblock %}
