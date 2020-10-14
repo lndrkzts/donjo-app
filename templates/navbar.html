@@ -1,3 +1,4 @@
+{% url 'carritos:carrito' as carrito %}
 {% url 'productos:ofertas' as ofertas %}
 {% url 'usuarios:registrarse' as registrarse %}
 {% url 'usuarios:iniciar_sesion' as iniciar_sesion %}
@@ -37,7 +38,7 @@
 
     <ul class="nav navbar-nav ml-auto">
       <li class="navbar-item">
-        <a href="#" class="nav-link {% if request.path == carrito %} active {% endif %}">
+        <a href="{{ carrito }}" class="nav-link {% if request.path == carrito %} active {% endif %}">
           <span class="fas fa-shopping-cart"></span>
           Mi Carrito
         </a>

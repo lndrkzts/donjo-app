@@ -13,6 +13,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('categorias/', include('apps.categorias.urls')),
+    path('carritos/', include('apps.carritos.urls')),
     path('productos/', include('apps.productos.urls')),
     path('usuarios/', include('apps.usuarios.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
