@@ -15,7 +15,7 @@ class Carrito(models.Model):
     total = models.DecimalField(default=0.0, max_digits=12, decimal_places=2)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
-    COMISION = 0.05
+    COMISION = 5
 
     def __str__(self):
         return self.id_carrito
@@ -32,7 +32,7 @@ class Carrito(models.Model):
         self.save()
 
     def actualizar_total(self):
-        self.total = self.subtotal + (self.subtotal * decimal.Decimal(Carrito.COMISION))
+        self.total = self.subtotal + (self.subtotal * decimal.Decimal(Carrito.COMISION / 100))
         self.save()
 
 

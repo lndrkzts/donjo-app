@@ -49,8 +49,18 @@
     <div class="card">
         <div class="card-body">
             <div class="font-weight-bold">
-                Subtotal ({{ carrito.productos.count }}): 
-                <span class="text-success">${{ carrito.subtotal }}</span>
+                <div>
+                    Subtotal: 
+                    <span class="text-success">${{ carrito.subtotal }}</span>
+                </div>
+                <div>
+                    Comisión: 
+                    <span class="text-success">{{ carrito.COMISION }}%</span>
+                </div>
+                <div>
+                    Total: 
+                    <span class="text-success">${{ carrito.total }}</span>
+                </div>
             </div>
             <div class="mt-2">
                 <a href="#" class="btn btn-warning">Proceder al pago</a>
