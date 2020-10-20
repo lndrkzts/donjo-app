@@ -8,13 +8,14 @@
 </div>
 <div class="col-xl-4 col-lg-5 col-md-5 col-sm-12">
     <div class="h1">{{ producto.titulo }}</div>
-    <div>
+    <div class="mt-4">
         <p>{{ producto.descripcion }}</p>
     </div>
-    <div class="h5 font-weight-bold">
+    <div class="h5 font-weight-bold mt-4">
         Precio: <span class="text-success">${{ producto.precio }}</span>
     </div>
-    <div class="">
+    <div class="mt-4">
+        {% include 'carritos/snippets/agregar.html' %}
     </div>
 </div>
 {% endblock %}

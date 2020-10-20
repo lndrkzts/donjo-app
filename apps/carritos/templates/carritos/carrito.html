@@ -1,13 +1,61 @@
 {% extends 'base.html' %}
+{% load carrito_extras %}
 
 {% block content %}
 {% if carrito.productos.exists %}
 
-<div class="col-md-8">
-
+<div class="col-md-9">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio Unitario</th>
+                <th scope="col">Precio Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cp in carrito.carritoproducto_set.all %}
+            {% with cp.producto as producto %}
+            <tr>
+                <th>
+                    {{ forloop.counter }}
+                </th>
+                <th>
+                    {% if producto.imagen %}
+                    <img src="{{ producto.imagen.url }}" alt="{{ producto.titulo }}" width="60px" height="60px">
+                    {% endif %}
+                </th>
+                <th>
+                    <a href="{% url 'productos:producto' producto.slug %}">{{ producto.titulo }}</a>
+                </th>
+                <th>{{ cp.cantidad }}</th>
+                <th>
+                    <span class="font-weight-bold">${{ producto.precio }}</span>
+                </th>
+                <th>
+                    <span class="font-weight-bold text-success">${{ producto.precio | multiplicar:cp.cantidad }}</span>
+                </th>
+            </tr>
+            {% endwith %}
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
-<div class="col-md-4">
-
+<div class="col-md-3">
+    <div class="card">
+        <div class="card-body">
+            <div class="font-weight-bold">
+                Subtotal ({{ carrito.productos.count }}): 
+                <span class="text-success">${{ carrito.subtotal }}</span>
+            </div>
+            <div class="mt-2">
+                <a href="#" class="btn btn-warning">Proceder al pago</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% else %}

@@ -1,0 +1,27 @@
+<form action="{% url 'carritos:agregar' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="id_producto" value="{{ producto.id }}">
+    <div>
+        <button type="button" class="col-1 btn btn-info d-inline" id="btnQuitar">-</button>
+        <input type="text" value="1" class="col-1 form-control d-inline text-center" id="inpCantidad" name="inpCantidad" readonly>
+        <button type="button" class="col-1 btn btn-info d-inline" id="btnAgregar">+</button>
+    </div>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-warning">Agregar al carrito</button>
+    </div>
+</form>
+
+<script>
+    const btnAgregar = document.getElementById("btnAgregar");
+    const btnQuitar = document.getElementById("btnQuitar");
+    const inpCantidad = document.getElementById("inpCantidad");
+
+    btnAgregar.addEventListener("click", () => {
+        inpCantidad.value = parseInt(inpCantidad.value) + 1;
+    });
+
+    btnQuitar.addEventListener("click", () => {
+        let value = parseInt(inpCantidad.value);
+        if (value > 1) inpCantidad.value = value - 1;
+    });
+</script>
