@@ -30,6 +30,7 @@
                 </th>
                 <th>
                     <a href="{% url 'productos:producto' producto.slug %}">{{ producto.titulo }}</a>
+                    {% include 'carritos/snippets/eliminar.html' %}
                 </th>
                 <th>{{ cp.cantidad }}</th>
                 <th>

@@ -11,6 +11,7 @@
     </div>
 </form>
 
+{% block javascript %}
 <script>
     const btnAgregar = document.getElementById("btnAgregar");
     const btnQuitar = document.getElementById("btnQuitar");
@@ -25,3 +26,4 @@
         if (value > 1) inpCantidad.value = value - 1;
     });
 </script>
+{% endblock javascript %}

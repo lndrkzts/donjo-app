@@ -1,0 +1,19 @@
+<div>
+    <button onclick="abrirModalEliminar('{% url 'carritos:eliminar' producto.id %}')" 
+        class="btn btn-link text-danger" 
+        style="padding:0px">
+        Eliminar
+    </button>
+</div>
+
+<div class="modal fade" id="modalEliminar" role="dialog"></div>
+
+{% block javascript %}
+<script type="text/javascript">
+    function abrirModalEliminar(url){
+        $('#modalEliminar').load(url, function() {
+            $(this).modal('show');
+        });
+    }
+</script>
+{% endblock javascript %}

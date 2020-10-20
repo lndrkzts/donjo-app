@@ -1,0 +1,21 @@
+<div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">
+                Eliminar producto del carrito
+            </h4>
+        </div>
+        <div class="modal-body">
+            <p>
+                ¿Está seguro que desea eliminar el producto del carrito?
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger pull-left" type="button" data-dismiss="modal">Cancelar</button>
+            <form action="{% url 'carritos:eliminar' producto.id %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-primary" type="submit">Aceptar</button>
+            </form>
+        </div>
+    </div>
+</div>

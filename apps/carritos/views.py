@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic.edit import DeleteView
 
 from apps.productos.models import Producto
 
@@ -23,4 +24,21 @@ def agregar_producto(request):
     return render(request, 'carritos/agregar.html', {
         'producto': producto,
         'cantidad': cantidad
+    })
+
+
+def eliminar_producto(request, pk):
+    if request.method == 'POST':
+        carrito = get_or_create_carrito(request)
+        producto = get_object_or_404(Producto, pk=pk)
+        carrito.productos.remove(producto)
+        
+        return redirect('carritos:carrito')
+
+    elif request.method == 'GET':
+        carrito = get_or_create_carrito(request)
+        producto = get_object_or_404(Producto, pk=pk)
+
+        return render(request, 'carritos/modals/eliminar.html', {
+        'producto': producto
     })
