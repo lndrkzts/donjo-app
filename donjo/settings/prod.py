@@ -1,10 +1,7 @@
 import dj_database_url
 
 from decouple import config
-
 from .base import *
-from donjo.urls import urlpatterns
-
 
 DEBUG = False
 
