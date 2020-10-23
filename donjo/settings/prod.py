@@ -5,7 +5,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 MIDDLEWARE += [
-    'whitenoise.middleware.WhiteNoiseMiddleware ',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 import dj_database_url
