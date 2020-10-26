@@ -6,4 +6,5 @@ app_name = 'pedidos'
 
 urlpatterns = [
     path('pedido', views.pedido, name='pedido'),
+    path('pedidos', views.PedidosListView.as_view(), name='pedidos'),
 ]

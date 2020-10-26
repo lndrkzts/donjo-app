@@ -1,0 +1,51 @@
+<div class="card mb-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-2">
+                <div class="font-weight-bold">
+                    Fecha creacion:
+                </div>
+                <div>
+                    {{ pedido.fecha_creacion }}
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="font-weight-bold">
+                    Estado:
+                </div>
+                <div>
+                    {{ pedido.estado }}
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="font-weight-bold">
+                    Fecha pago:
+                </div>
+                <div>
+                    {{ pedido.fecha_pago }}
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="font-weight-bold">
+                    Total:
+                </div>
+                <div>
+                    ${{ pedido.total }}
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="font-weight-bold">
+                    Enviado a:
+                </div>
+                <div>
+                    -
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="font-weight-bold">
+                    <a href="#">Ver detalles</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

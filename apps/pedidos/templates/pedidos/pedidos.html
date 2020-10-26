@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-12">
+    <div class="h3 mt-3 mb-4">
+        Mis pedidos
+    </div>
+    <div>
+        {% for pedido in lista_pedidos %}
+        {% include 'pedidos/snippets/pedido.html' %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

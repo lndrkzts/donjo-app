@@ -1,4 +1,5 @@
 {% url 'carritos:carrito' as carrito %}
+{% url 'pedidos:pedidos' as pedidos %}
 {% url 'productos:ofertas' as ofertas %}
 {% url 'usuarios:registrarse' as registrarse %}
 {% url 'usuarios:iniciar_sesion' as iniciar_sesion %}
@@ -51,7 +52,7 @@
         </a>
       </li>
       <li class="navbar-item">
-        <a href="#" class="nav-link {% if request.path == pedidos %} active {% endif %}">
+        <a href="{{ pedidos }}" class="nav-link {% if request.path == pedidos %} active {% endif %}">
           <span class="fas fa-shipping-fast"></span>
           Mis Pedidos
         </a>
