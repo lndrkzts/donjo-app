@@ -5,6 +5,7 @@ from django.db.models.signals import pre_save, post_save, m2m_changed
 
 from apps.usuarios.models import User
 from apps.productos.models import Producto
+from apps.pedidos.enums import Estado
 
 
 class Carrito(models.Model):
@@ -19,6 +20,10 @@ class Carrito(models.Model):
 
     def __str__(self):
         return self.id_carrito
+
+    @property
+    def pedido(self):
+        return self.pedido_set.filter(estado=Estado.CREADO).first()
 
     def productos_relacionados(self):
         return self.carritoproducto_set.select_related('producto')
