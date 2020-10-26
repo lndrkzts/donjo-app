@@ -1,3 +1,4 @@
+import decimal
 import uuid
 
 from django.db import models
@@ -15,11 +16,14 @@ class Pedido(models.Model):
     carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE)
     estado = models.CharField(max_length=50, choices=Estado.choices, default=Estado.CREADO)
     costo_envio = models.DecimalField(default=0, max_digits=12, decimal_places=2)
-    total = models.DecimalField(default=0, max_digits=12, decimal_places=2)
+    total = models.DecimalField(max_digits=12, decimal_places=2)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.id_pedido
+
+    def get_total(self):
+        return self.carrito.total + self.costo_envio
 
 
 def set_id_pedido(sender, instance, *args, **kwargs):
@@ -27,4 +31,9 @@ def set_id_pedido(sender, instance, *args, **kwargs):
         instance.id_pedido = str(uuid.uuid4())
 
 
+def set_total(sender, instance, *args, **kwargs):
+    instance.total = instance.get_total()
+
+
 pre_save.connect(set_id_pedido, sender=Pedido)
+pre_save.connect(set_total, sender=Pedido)
