@@ -1,0 +1,49 @@
+<div class="card">
+    <div class="card-body">
+        <div class="font-weight-bold">
+            Resumen del carrito
+        </div>
+        <div>
+            <table class="table table-borderless table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Subtotal:</td>
+                        <td>
+                            <span class="text-success">${{ carrito.subtotal }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Comisión:</td>
+                        <td>
+                            <span class="">{{ carrito.COMISION }}%</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <hr>
+            <small>
+                Al continuar con el pago, se agregá al total el costo de envío.
+                Asímismo, también podrá aplicar cupones de descuento o promociones con tarjetas.
+            </small>
+            <hr>
+            <div class="font-weight-bold">
+                Total:
+                <div class="d-inline-block text-success" id="order-total">
+                    ${{ carrito.total }}
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="mt-2">
+            <a href="{% url 'pedidos:pedido' %}" class="btn btn-warning">Continuar con el pago</a>
+        </div>
+    </div>
+</div>

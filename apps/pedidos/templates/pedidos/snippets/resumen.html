@@ -1,0 +1,62 @@
+<div class="card">
+    <div class="card-body">
+        <div class="font-weight-bold">
+            Resumen del pedido
+        </div>
+        <div>
+            <table class="table table-borderless table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Subtotal:</td>
+                        <td>
+                            <span class="text-success">${{ carrito.subtotal }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Comisión:</td>
+                        <td>
+                            <span>{{ carrito.COMISION }}%</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Envío:</td>
+                        <td>
+                            <span class="text-success">${{ carrito.costo_envio }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Descuento tarjeta:</td>
+                        <td>
+                            <span class="text-success">-</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Descuento cupón:</td>
+                        <td>
+                            <span class="text-success">-</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <hr>
+            <div class="font-weight-bold">
+                Total:
+                <div class="d-inline-block text-success" id="order-total">
+                    ${{ pedido.total }}
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="mt-2">
+            <a href="#" class="btn btn-warning">Confirmar pedido</a>
+        </div>
+    </div>
+</div>

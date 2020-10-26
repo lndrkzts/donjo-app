@@ -4,30 +4,13 @@
 {% if carrito.productos.exists %}
 
 <div class="col-md-9">
+    <div class="h3 mt-3 mb-4">
+        Mi carrito
+    </div>
     {% include 'carritos/snippets/tabla_productos.html' %}
 </div>
 <div class="col-md-3">
-    <div class="card">
-        <div class="card-body">
-            <div class="font-weight-bold">
-                <div>
-                    Subtotal: 
-                    <span class="text-success">${{ carrito.subtotal }}</span>
-                </div>
-                <div>
-                    Comisión: 
-                    <span class="text-success">{{ carrito.COMISION }}%</span>
-                </div>
-                <div>
-                    Total: 
-                    <span class="text-success">${{ carrito.total }}</span>
-                </div>
-            </div>
-            <div class="mt-2">
-                <a href="{% url 'pedidos:pedido' %}" class="btn btn-warning">Proceder al pago</a>
-            </div>
-        </div>
-    </div>
+    {% include 'carritos/snippets/resumen.html' %}
 </div>
 
 {% else %}
