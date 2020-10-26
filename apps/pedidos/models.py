@@ -25,6 +25,10 @@ class Pedido(models.Model):
     def get_total(self):
         return self.carrito.total + self.costo_envio
 
+    def actualizar_total(self):
+        self.total = self.get_total()
+        self.save()
+
 
 def set_id_pedido(sender, instance, *args, **kwargs):
     if not instance.id_pedido:

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import DeleteView
 
 from apps.productos.models import Producto
+from apps.pedidos.utils import eliminar_pedido
 
 from .models import CarritoProducto
 from .utils import get_or_create_carrito
@@ -32,6 +33,10 @@ def eliminar_producto(request, pk):
         carrito = get_or_create_carrito(request)
         producto = get_object_or_404(Producto, pk=pk)
         carrito.productos.remove(producto)
+
+        pedido = carrito.pedido
+        if carrito.pedido and not carrito.productos.exists():
+            eliminar_pedido(pedido)
         
         return redirect('carritos:carrito')
 

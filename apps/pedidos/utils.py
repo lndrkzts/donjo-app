@@ -1,5 +1,5 @@
-from apps.pedidos.models import Pedido
-
+from .models import Pedido
+from .enums import Estado
 
 def get_or_create_pedido(carrito, request):
     pedido = carrito.pedido
@@ -11,3 +11,8 @@ def get_or_create_pedido(carrito, request):
         request.session['id_pedido'] = pedido.id
 
     return pedido
+
+
+def eliminar_pedido(pedido):
+    pedido.estado = Estado.ELIMINADO
+    pedido.save()
