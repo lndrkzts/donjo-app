@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if lista_pedidos %}
 
 <div class="col-12">
     <div class="h3 mt-3 mb-4">
@@ -13,4 +14,14 @@
     </div>
 </div>
 
+{% else %}
+
+<div class="col-12 text-center">
+    <p class="h3">No realizó ningún pedido</p>
+    <div class="mt-3">
+        <a href="{% url 'productos:ofertas' %}">Ver ofertas</a>
+    </div>
+</div>
+
+{% endif %}
 {% endblock content %}
