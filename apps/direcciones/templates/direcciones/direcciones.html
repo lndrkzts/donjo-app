@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if lista_direcciones %}
+
+<div class="col-md-12">
+    <div class="h3 mt-3 mb-4">
+        Mis direcciones
+    </div>
+</div>
+
+{% else %}
+
+<div class="col-12 text-center">
+    <p class="h3">No tiene direcciones</p>
+    <div class="mt-3">
+        <a href="#">Agregar nueva dirección</a>
+    </div>
+</div>
+
+{% endif %}
+{% endblock content %}
