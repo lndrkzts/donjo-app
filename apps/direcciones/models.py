@@ -1,3 +1,21 @@
 from django.db import models
 
-# Create your models here.
+from apps.usuarios.models import User
+from apps.barrio.models import Barrio
+
+
+class Direccion(models.Model):
+    usuario = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
+    nombre_calle = models.CharField(max_length=100, null=False, blank=False)
+    numero_calle = models.CharField(max_length=100, null=False, blank=False)
+    barrio = models.ForeignKey(Barrio, null=False, blank=False)
+    observaciones = models.CharField(max_length=300)
+    prinicipal = models.BooleanField(default=False)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '{} {}, {}'.format(self.nombre_calle, self.numero_calle, self.barrio.nombre)
+
+    @property
+    def direccion(self):
+        return '{} {}, {}'.format(self.nombre_calle, self.numero_calle, self.barrio.nombre)
