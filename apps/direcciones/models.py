@@ -10,7 +10,7 @@ class Direccion(models.Model):
     numero_calle = models.CharField(max_length=100, null=False, blank=False)
     barrio = models.ForeignKey(Barrio, null=False, blank=False, on_delete=models.CASCADE)
     observaciones = models.CharField(max_length=300)
-    prinicipal = models.BooleanField(default=False)
+    principal = models.BooleanField(default=False)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
