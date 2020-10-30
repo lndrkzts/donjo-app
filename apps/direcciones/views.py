@@ -14,7 +14,7 @@ class DireccionesListView(LoginRequiredMixin, ListView):
     context_object_name = 'lista_direcciones'
 
     def get_queryset(self):
-        return Direccion.objects.filter(usuario=self.request.user)
+        return Direccion.objects.filter(usuario=self.request.user).order_by('-principal', '-barrio', '-nombre_calle', '-numero_calle')
 
 
 @login_required(login_url='usuarios:iniciar_sesion')
