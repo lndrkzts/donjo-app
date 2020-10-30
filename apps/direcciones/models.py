@@ -7,7 +7,7 @@ from apps.barrios.models import Barrio
 class Direccion(models.Model):
     usuario = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
     nombre_calle = models.CharField(max_length=100, null=False, blank=False)
-    numero_calle = models.CharField(max_length=100, null=False, blank=False)
+    numero_calle = models.IntegerField(null=False, blank=False)
     barrio = models.ForeignKey(Barrio, null=False, blank=False, on_delete=models.CASCADE)
     observaciones = models.CharField(max_length=300)
     principal = models.BooleanField(default=False)
