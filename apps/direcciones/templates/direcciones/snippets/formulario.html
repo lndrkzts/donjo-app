@@ -1,0 +1,16 @@
+<form method="POST">
+    {% csrf_token %}
+    {% for campo in form %}
+    <div class="form-group">
+        {{ campo.label_tag }}
+        {{ campo }}
+
+        {% if campo.errors %}
+        {{ campo.errors }}
+        {% endif %}
+    </div>
+    {% endfor %}
+    <div class="text-right">
+        <button type="submit" class="btn btn-primary text-right">{{ texto_boton }}</button>
+    </div>
+</form>

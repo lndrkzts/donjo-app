@@ -1,20 +1,37 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
-from django.views.generic.list import ListView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import render, redirect, reverse
+from django.views.generic import ListView, UpdateView
 
 from .models import Direccion
 from .forms import DireccionForm
 
 
-class DireccionesListView(LoginRequiredMixin, ListView):
+class DireccionListView(LoginRequiredMixin, ListView):
     login_url = 'usuarios:inicar_sesion'
     template_name = 'direcciones/direcciones.html'
     context_object_name = 'lista_direcciones'
 
     def get_queryset(self):
         return Direccion.objects.filter(usuario=self.request.user).order_by('-principal', '-barrio', '-nombre_calle', '-numero_calle')
+
+
+class DireccionUpdateView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
+    login_url = 'usuarios:iniciar_sesion'
+    model = Direccion
+    form_class = DireccionForm
+    template_name = 'direcciones/editar.html'
+
+
+    def get_success_url(self):
+        return reverse('direcciones:direcciones')
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.id is not self.get_object().usuario.id:
+            return redirect('direcciones:direcciones')
+        return super(DireccionUpdateView, self).dispatch(request, *args, **kwargs)
 
 
 @login_required(login_url='usuarios:iniciar_sesion')
@@ -30,4 +47,4 @@ def crear(request):
 
         return redirect('direcciones:direcciones')
 
-    return render(request, 'direcciones/crear.html', {'formulario': formulario})
+    return render(request, 'direcciones/crear.html', {'form': formulario})
