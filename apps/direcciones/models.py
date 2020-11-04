@@ -19,3 +19,6 @@ class Direccion(models.Model):
     @property
     def direccion(self):
         return '{} {}, {}'.format(self.nombre_calle, self.numero_calle, self.barrio.nombre)
+
+    def tiene_pedidos_relacionados(self):
+        return self.pedido_set.count() >= 1

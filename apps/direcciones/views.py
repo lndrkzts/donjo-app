@@ -2,8 +2,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import render, redirect, reverse
-from django.views.generic import ListView, UpdateView
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, UpdateView, DeleteView
 
 from .models import Direccion
 from .forms import DireccionForm
@@ -24,14 +25,27 @@ class DireccionUpdateView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
     form_class = DireccionForm
     template_name = 'direcciones/editar.html'
 
-
     def get_success_url(self):
         return reverse('direcciones:direcciones')
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.id is not self.get_object().usuario.id:
+            messages.success(request, "Direccion editada correctamente")
             return redirect('direcciones:direcciones')
         return super(DireccionUpdateView, self).dispatch(request, *args, **kwargs)
+
+
+@login_required(login_url='usuarios:iniciar_sesion')
+def eliminar_direccion(request, pk):
+    if request.method == 'POST':
+        Direccion.objects.filter(pk=pk).delete()
+        return redirect('direcciones:direcciones')
+
+    elif request.method == 'GET':
+        direccion = get_object_or_404(Direccion, pk=pk)
+        return render(request, 'direcciones/modals/eliminar.html', {
+        'direccion': direccion
+    })
 
 
 @login_required(login_url='usuarios:iniciar_sesion')

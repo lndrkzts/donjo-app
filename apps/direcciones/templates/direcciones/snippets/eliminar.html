@@ -1,0 +1,16 @@
+<a onclick="abrirModalEliminar('{% url 'direcciones:eliminar' direccion.id %}')" 
+    class="btn btn-outline-danger btn-sm">
+    Eliminar
+</a>
+
+<div class="modal fade" id="modalEliminar" role="dialog"></div>
+
+{% block javascript %}
+<script type="text/javascript">
+    function abrirModalEliminar(url){
+        $('#modalEliminar').load(url, function() {
+            $(this).modal('show');
+        });
+    }
+</script>
+{% endblock javascript %}
