@@ -22,3 +22,10 @@ class Direccion(models.Model):
 
     def tiene_pedidos_relacionados(self):
         return self.pedido_set.count() >= 1
+    
+    def get_costo_envio(self):
+        return self.barrio.costo_envio
+    
+    def update_principal(self, principal):
+        self.principal = principal
+        self.save()

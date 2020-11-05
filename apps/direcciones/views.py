@@ -36,7 +36,7 @@ class DireccionUpdateView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
 
 
 @login_required(login_url='usuarios:iniciar_sesion')
-def eliminar_direccion(request, pk):
+def eliminar(request, pk):
     if request.method == 'POST':
         Direccion.objects.filter(pk=pk).delete()
         return redirect('direcciones:direcciones')
@@ -62,3 +62,17 @@ def crear(request):
         return redirect('direcciones:direcciones')
 
     return render(request, 'direcciones/crear.html', {'form': formulario})
+
+
+@login_required(login_url='usuarios:iniciar_sesion')
+def principal(request, pk):
+    direccion = get_object_or_404(Direccion, pk=pk)
+
+    if request.user.id is not direccion.usuario.id:
+        return redirect('direcciones:direcciones')
+
+    if request.user.tiene_direccion_principal():
+        request.user.direccion_principal.update_principal(False)
+
+    direccion.update_principal(True)
+    return redirect('direcciones:direcciones')

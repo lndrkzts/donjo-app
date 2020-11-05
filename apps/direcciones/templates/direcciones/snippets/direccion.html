@@ -12,7 +12,7 @@
             {% if direccion.principal %}
                 <a href="#" class="btn btn-dark btn-sm">Dirección principal</a>
             {% else %}
-                <a href="#" class="btn btn-success btn-sm">Hacer principal</a>
+                <a href="{% url 'direcciones:principal' direccion.id %}" class="btn btn-success btn-sm">Hacer principal</a>
                 {% include 'direcciones/snippets/eliminar.html' %}
             {% endif %}
         </div>
