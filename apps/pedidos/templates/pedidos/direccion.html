@@ -3,7 +3,7 @@
 {% block content %}
     <div class="col-md-9">
         <div class="h3 mt-3 mb-4">
-            Seleccione dirección de envío
+            Dirección de envío
         </div>
         {% if direccion %}
             {% include 'direcciones/snippets/direccion.html' %}
@@ -13,8 +13,11 @@
         </p>
         {% endif %}
         <div class="mt-3">
+            <a href="{% url 'pedidos:seleccionar_direccion' %}">Seleccionar otra</a>
+        </div>
+        <div class="mt-3">
             {% url 'pedidos:direccion' as next_url %}
-            <a href="{% url 'direcciones:crear' %}?next={{next_url}}">Agregar nueva dirección de envío</a>
+            <a href="{% url 'direcciones:crear' %}?next={{next_url}}">Agregar nueva</a>
         </div>
     </div>
     <div class="col-md-3">

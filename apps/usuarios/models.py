@@ -14,6 +14,10 @@ class User(AbstractUser):
     tipo_usuario = models.CharField(max_length=50, choices=TipoUsuario.choices)
 
     @property
+    def direcciones(self):
+        return self.direccion_set.all()
+
+    @property
     def direccion_principal(self):
         return self.direccion_set.filter(principal=True).first()
 

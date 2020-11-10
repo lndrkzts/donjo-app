@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
 
 from .decorators import get_carrito_and_pedido
+
+from apps.direcciones.models import Direccion
 
 
 class PedidosListView(LoginRequiredMixin, ListView):
@@ -42,3 +44,24 @@ def direccion(request, pedido):
         'pedido': pedido,
         'puede_modificar_direccion': puede_modificar_direccion
     })
+
+
+@login_required(login_url='usuarios:iniciar_sesion')
+def seleccionar_direccion(request):
+    lista_direcciones = request.user.direcciones
+
+    return render(request, 'pedidos/seleccionar_direccion.html', {
+        'lista_direcciones': lista_direcciones,
+    })
+
+
+@login_required(login_url='usuarios:iniciar_sesion')
+@get_carrito_and_pedido
+def set_direccion(request, pedido, pk):
+    direccion = get_object_or_404(Direccion, pk=pk)
+
+    if request.user.id is not direccion.usuario.id:
+        return redirect('carritos:carrito')
+
+    pedido.update_direccion_y_costo_envio(direccion)
+    return redirect('pedidos:direccion')

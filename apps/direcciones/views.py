@@ -5,9 +5,13 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView
+from django.http import HttpResponseRedirect
 
 from .models import Direccion
 from .forms import DireccionForm
+
+from apps.carritos.utils import get_or_create_carrito
+from apps.pedidos.utils import get_or_create_pedido
 
 
 class DireccionListView(LoginRequiredMixin, ListView):
@@ -57,10 +61,17 @@ def crear(request):
         direccion.usuario = request.user
         direccion.principal = not request.user.tiene_direccion_principal()
         direccion.save()
+
+        if request.GET.get('next') and request.GET['next'] == reverse('pedidos:direccion'):
+            carrito = get_or_create_carrito(request)
+            pedido = get_or_create_pedido(carrito, request)
+            pedido.update_direccion_y_costo_envio(direccion)
+
+            messages.success(request, 'Dirección creada y seleccionada exitosamente')
+            return HttpResponseRedirect(request.GET['next'])
+
         messages.success(request, 'Dirección creada exitosamente')
-
         return redirect('direcciones:direcciones')
-
     return render(request, 'direcciones/crear.html', {'form': formulario})
 
 
