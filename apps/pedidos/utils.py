@@ -1,6 +1,5 @@
 from django.urls import reverse
 
-
 from .models import Pedido
 from .enums import Estado
 
@@ -17,15 +16,14 @@ def get_or_create_pedido(carrito, request):
     return pedido
 
 
-def eliminar_pedido(pedido):
-    pedido.estado = Estado.ELIMINADO
-    pedido.save()
+def eliminar_pedido_session(request):
+    request.session['id_pedido'] = None
 
 
-def breadcrumb(productos=True, direccion=False, metodo_pago=False, confirmacion=False):
+def breadcrumb(productos=True, direccion=False, tarjeta=False, confirmacion=False):
     return [
         {'titulo': 'Productos', 'activo': productos, 'url': reverse('pedidos:pedido')},
         {'titulo': 'Dirección', 'activo': direccion, 'url': reverse('pedidos:direccion')},
-        {'titulo': 'Pago', 'activo': metodo_pago, 'url': '#'},
+        {'titulo': 'Tarjeta', 'activo': tarjeta, 'url': '#'},
         {'titulo': 'Confirmación', 'activo': confirmacion, 'url': '#'},
     ]

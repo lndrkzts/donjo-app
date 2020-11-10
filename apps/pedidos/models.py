@@ -45,6 +45,14 @@ class Pedido(models.Model):
         self.direccion_envio = direccion_usuario
         self.costo_envio = direccion_usuario.get_costo_envio()
         self.save()
+    
+    def cancelar(self):
+        self.estado = Estado.CANCELADO
+        self.save()
+    
+    def eliminar(self):
+        self.estado = Estado.ELIMINADO
+        self.save()
 
 
 def set_id_pedido(sender, instance, *args, **kwargs):

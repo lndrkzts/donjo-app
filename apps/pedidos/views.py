@@ -1,12 +1,14 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
 
 from .decorators import get_carrito_and_pedido
-from .utils import breadcrumb
+from .utils import breadcrumb, eliminar_pedido_session
 
 from apps.direcciones.models import Direccion
+from apps.carritos.utils import eliminar_carrito_session
 
 
 class PedidosListView(LoginRequiredMixin, ListView):
@@ -68,3 +70,34 @@ def set_direccion(request, pedido, pk):
 
     pedido.update_direccion_y_costo_envio(direccion)
     return redirect('pedidos:direccion')
+
+
+@login_required(login_url='usuarios:iniciar_sesion')
+@get_carrito_and_pedido
+def confirmar(request, pedido):
+    if not pedido.carrito.productos.exists():
+        return redirect('carritos:carrito')
+
+    if  pedido.direccion_envio is None:
+        return redirect('pedidos:direccion')
+
+    return render(request, 'pedidos/confirmar.html', {
+        'breadcrumb': breadcrumb(direccion=True, tarjeta=True, confirmacion=True),
+        'carrito': pedido.carrito,
+        'pedido': pedido,
+        'direccion': pedido.direccion_envio,
+    })
+
+
+@login_required(login_url='usuarios:iniciar_sesion')
+@get_carrito_and_pedido
+def cancelar(request, pedido):
+    if request.user.id != pedido.usuario.id:
+        return redirect('carritos:carrito')
+
+    pedido.cancelar()
+    eliminar_pedido_session(request)
+    eliminar_carrito_session(request)
+    messages.success(request, 'El pedido ha sido cancelado. Puede volver a crear uno nuevo.')
+
+    return redirect('index')

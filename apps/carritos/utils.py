@@ -18,5 +18,5 @@ def get_or_create_carrito(request):
     return carrito
 
 
-def eliminar_carrito(request):
+def eliminar_carrito_session(request):
     request.session['id_carrito'] = None
