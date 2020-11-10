@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
 
 from .decorators import get_carrito_and_pedido
+from .utils import breadcrumb
 
 from apps.direcciones.models import Direccion
 
@@ -24,6 +25,7 @@ def pedido(request, pedido):
         return redirect('index')
 
     return render(request, 'pedidos/pedido.html', {
+        'breadcrumb': breadcrumb(),
         'carrito': pedido.carrito,
         'pedido': pedido,
     })
@@ -39,6 +41,7 @@ def direccion(request, pedido):
     puede_modificar_direccion = request.user.direccion_set.exists()
 
     return render(request, 'pedidos/direccion.html', {
+        'breadcrumb': breadcrumb(direccion=True),
         'carrito': pedido.carrito,
         'direccion': direccion,
         'pedido': pedido,
