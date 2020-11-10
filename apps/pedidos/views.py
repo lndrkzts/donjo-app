@@ -19,9 +19,26 @@ class PedidosListView(LoginRequiredMixin, ListView):
 @get_carrito_and_pedido
 def pedido(request, pedido):
     if not pedido.carrito.productos.exists():
-        return redirect('carts:cart')
+        return redirect('index')
 
     return render(request, 'pedidos/pedido.html', {
         'carrito': pedido.carrito,
         'pedido': pedido,
+    })
+
+
+@login_required(login_url='usuarios:iniciar_sesion')
+@get_carrito_and_pedido
+def direccion(request, pedido):
+    if not pedido.carrito.productos.exists():
+        return redirect('index')
+
+    direccion = pedido.get_or_set_direccion_envio()
+    puede_modificar_direccion = request.user.direccion_set.exists()
+
+    return render(request, 'pedidos/direccion.html', {
+        'carrito': pedido.carrito,
+        'direccion': direccion,
+        'pedido': pedido,
+        'puede_modificar_direccion': puede_modificar_direccion
     })

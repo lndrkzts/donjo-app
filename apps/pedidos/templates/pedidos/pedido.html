@@ -8,7 +8,7 @@
         {% include 'carritos/snippets/tabla_productos.html' %}
     </div>
     <div class="col-md-3">
-        <!-- {% url 'pedidos:direccion' as siguiente_url %} -->
+        {% url 'pedidos:direccion' as siguiente_url %}
         {% include 'pedidos/snippets/resumen.html' with siguiente_url=siguiente_url %}
     </div>
 {% endblock content %}
