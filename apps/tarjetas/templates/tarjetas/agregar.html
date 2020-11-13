@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-lg-6 col-md-8 col-sm-12 col-xs-12 offset-lg-3 offset-md-2">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Nueva tarjeta</h1>
+            {% include 'tarjetas/snippets/formulario.html' %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

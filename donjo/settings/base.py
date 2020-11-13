@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'apps.direcciones',
     'apps.pedidos',
     'apps.productos',
+    'apps.tarjetas',
     'apps.usuarios',
 ]
 
@@ -127,3 +129,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+
+# Stripe 
+
+STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY')
+STRIPE_PRIVATE_KEY = config('STRIPE_PRIVATE_KEY')

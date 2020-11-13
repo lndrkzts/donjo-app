@@ -17,6 +17,7 @@ urlpatterns = [
     path('direcciones/', include('apps.direcciones.urls')),
     path('pedidos/', include('apps.pedidos.urls')),
     path('productos/', include('apps.productos.urls')),
+    path('tarjetas/', include('apps.tarjetas.urls')),
     path('usuarios/', include('apps.usuarios.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
 ]
