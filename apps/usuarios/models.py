@@ -25,6 +25,10 @@ class User(AbstractUser):
         return self.direccion_set.filter(principal=True).first()
 
     @property
+    def tarjeta_principal(self):
+        return self.tarjeta_set.filter(principal=True).first()
+
+    @property
     def descripcion(self):
         return '{} {} ({})'.format(self.first_name, self.last_name, self.email)
 
@@ -36,6 +40,9 @@ class User(AbstractUser):
 
     def tiene_direccion_principal(self):
         return self.direccion_principal is not None
+
+    def tiene_tarjeta_principal(self):
+        return self.tarjeta_principal is not None
 
     def tiene_id_cliente(self):
         return self.id_cliente is not None
