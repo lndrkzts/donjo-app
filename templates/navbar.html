@@ -2,6 +2,7 @@
 {% url 'direcciones:direcciones' as direcciones %}
 {% url 'pedidos:pedidos' as pedidos %}
 {% url 'productos:ofertas' as ofertas %}
+{% url 'tarjetas:tarjetas' as tarjetas %}
 {% url 'usuarios:registrarse' as registrarse %}
 {% url 'usuarios:iniciar_sesion' as iniciar_sesion %}
 {% url 'usuarios:cerrar_sesion' as cerrar_sesion %}
@@ -59,7 +60,7 @@
         </a>
       </li>
       <li class="navbar-item">
-        <a href="#" class="nav-link {% if request.path == tarjetas %} active {% endif %}">
+        <a href="{{ tarjetas }}" class="nav-link {% if request.path == tarjetas %} active {% endif %}">
           <span class="fab fa-cc-stripe"></span>
           Tarjetas
         </a>

@@ -1,0 +1,22 @@
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">
+            {{ tarjeta.empresa }} ({{ tarjeta.fondos }})
+        </h5>
+        <div class="card-title">
+            **** **** **** {{ tarjeta.ultimos_digitos }}
+        </div>
+        <div class="card-title">
+            Fecha de alta: {{ tarjeta.fecha_creacion }}
+        </div>
+        {% if editar %}
+        <div class="mt-2">
+            {% if tarjeta.principal %}
+                <a href="#" class="btn btn-dark btn-sm">Tarjeta principal</a>
+            {% else %}
+                <a href="{% url 'tarjetas:principal' tarjeta.id %}" class="btn btn-success btn-sm">Hacer principal</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
