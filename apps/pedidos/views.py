@@ -74,6 +74,24 @@ def set_direccion(request, pedido, pk):
 
 @login_required(login_url='usuarios:iniciar_sesion')
 @get_carrito_and_pedido
+def tarjeta(request, pedido):
+    if not pedido.carrito.productos.exists():
+        return redirect('index')
+
+    tarjeta = pedido.get_or_set_tarjeta()
+    puede_modificar_tarjeta = request.user.tarjeta_set.exists()
+
+    return render(request, 'pedidos/tarjeta.html', {
+        'breadcrumb': breadcrumb(direccion=True, tarjeta=True),
+        'carrito': pedido.carrito,
+        'tarjeta': tarjeta,
+        'pedido': pedido,
+        'puede_modificar_tarjeta': puede_modificar_tarjeta
+    })
+
+
+@login_required(login_url='usuarios:iniciar_sesion')
+@get_carrito_and_pedido
 def confirmar(request, pedido):
     if not pedido.carrito.productos.exists():
         return redirect('carritos:carrito')

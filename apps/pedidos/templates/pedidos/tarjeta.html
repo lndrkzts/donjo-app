@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+{% include 'pedidos/snippets/breadcrumb.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-9">
+        <div class="h3 mt-3 mb-4">
+            Tarjeta
+        </div>
+        {% if tarjeta %}
+            {% include 'tarjetas/snippets/tarjeta.html' %}
+        {% else %}
+        <p>
+            Usted no cuenta con una tarjeta, por favor agregue una.
+        </p>
+        {% endif %}
+        <div class="mt-3">
+            <a href="#">Seleccionar otra</a>
+        </div>
+        <div class="mt-3">
+            {% url 'pedidos:tarjeta' as next_url %}
+            <a href="{% url 'tarjetas:agregar' %}?next={{next_url}}">Agregar nueva</a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        {% url 'pedidos:confirmar' as siguiente_url %}
+        {% include 'pedidos/snippets/resumen.html' with siguiente_url=siguiente_url %}
+    </div>
+{% endblock %}
