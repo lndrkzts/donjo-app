@@ -8,6 +8,8 @@ from .decorators import get_carrito_and_pedido
 from .utils import breadcrumb, eliminar_pedido_session
 
 from apps.direcciones.models import Direccion
+from apps.tarjetas.models import Tarjeta
+
 from apps.carritos.utils import eliminar_carrito_session
 
 
@@ -69,6 +71,8 @@ def set_direccion(request, pedido, pk):
         return redirect('carritos:carrito')
 
     pedido.update_direccion_y_costo_envio(direccion)
+    messages.success(request, 'Se ha modificado la dirección')
+
     return redirect('pedidos:direccion')
 
 
@@ -88,6 +92,29 @@ def tarjeta(request, pedido):
         'pedido': pedido,
         'puede_modificar_tarjeta': puede_modificar_tarjeta
     })
+
+
+@login_required(login_url='usuarios:iniciar_sesion')
+def seleccionar_tarjeta(request):
+    lista_tarjetas = request.user.tarjetas
+
+    return render(request, 'pedidos/seleccionar_tarjeta.html', {
+        'lista_tarjetas': lista_tarjetas,
+    })
+
+
+@login_required(login_url='usuarios:iniciar_sesion')
+@get_carrito_and_pedido
+def set_tarjeta(request, pedido, pk):
+    tarjeta = get_object_or_404(Tarjeta, pk=pk)
+
+    if request.user.id is not tarjeta.usuario.id:
+        return redirect('carritos:carrito')
+
+    pedido.update_tarjeta(tarjeta)
+    messages.success(request, 'Se ha modificado la tarjeta')
+
+    return redirect('pedidos:tarjeta')
 
 
 @login_required(login_url='usuarios:iniciar_sesion')

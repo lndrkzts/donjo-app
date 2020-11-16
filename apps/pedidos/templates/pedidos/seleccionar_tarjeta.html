@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load tarjeta_extras %}
+
+{% block content %}
+    <div class="col-md-12">
+        <div class="h3 mt-3">
+            Selecciona una tarjeta
+        </div>
+        <div class="mt-4">
+            <div class="card-deck mt-2">
+            {% for tarjeta in lista_tarjetas %}
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <img src="/static/svg/{{ tarjeta.empresa | get_icono }}.svg" width="40" height="40">
+                            {{ tarjeta.empresa }} ({{ tarjeta.fondos }})
+                        </h5>
+                        <div class="card-title">
+                            **** **** **** {{ tarjeta.ultimos_digitos }}
+                        </div>
+                        <div class="card-title">
+                            Fecha de alta: {{ tarjeta.fecha_creacion }}
+                        </div>
+                        <div class="mt-2">
+                            <a href="{% url 'pedidos:set_tarjeta' tarjeta.id %}" class="btn btn-success btn-sm">Seleccionar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

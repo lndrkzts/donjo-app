@@ -21,6 +21,10 @@ class User(AbstractUser):
         return self.direccion_set.all()
 
     @property
+    def tarjetas(self):
+        return self.tarjeta_set.all()
+
+    @property
     def direccion_principal(self):
         return self.direccion_set.filter(principal=True).first()
 
