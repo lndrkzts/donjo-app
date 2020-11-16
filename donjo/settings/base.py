@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'apps.barrios',
     'apps.carritos',
     'apps.categorias',
+    'apps.cupones',
     'apps.direcciones',
     'apps.pedidos',
     'apps.productos',
