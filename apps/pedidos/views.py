@@ -131,6 +131,7 @@ def confirmar(request, pedido):
         'carrito': pedido.carrito,
         'pedido': pedido,
         'direccion': pedido.direccion_envio,
+        'tarjeta': pedido.tarjeta
     })
 
 
