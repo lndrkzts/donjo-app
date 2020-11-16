@@ -31,6 +31,8 @@ def agregar(request):
 
             if tarjeta:
                 messages.success(request, "La tarjeta ha sido agregada exitosamente")
+                
+            return redirect('tarjetas:tarjetas')
 
     return render(request, 'tarjetas/agregar.html', {
         'stripe_public_key': STRIPE_PUBLIC_KEY

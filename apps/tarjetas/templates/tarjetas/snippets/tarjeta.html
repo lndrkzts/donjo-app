@@ -1,6 +1,9 @@
+{% load tarjeta_extras %}
+
 <div class="card mt-4">
     <div class="card-body">
         <h5 class="card-title">
+            <img src="/static/svg/{{ tarjeta.empresa | get_icono }}.svg" width="40" height="40">
             {{ tarjeta.empresa }} ({{ tarjeta.fondos }})
         </h5>
         <div class="card-title">
