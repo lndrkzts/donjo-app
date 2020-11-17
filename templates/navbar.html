@@ -71,6 +71,11 @@
           Salir
         </a>
       </li>
+      <li class="navbar-item">
+        <a class="nav-link active">
+          <span>¡Hola, {{ user.username }}!</span>
+        </a>
+      </li>
       {% else %}
       <li class="navbar-item">
         <a href="{{ iniciar_sesion }}" class="nav-link {% if request.path == iniciar_sesion %} active {% endif %}">
