@@ -14,6 +14,7 @@ urlpatterns = [
     path('', index, name='index'),
     path('categorias/', include('apps.categorias.urls')),
     path('carritos/', include('apps.carritos.urls')),
+    path('cupones/', include('apps.cupones.urls')),
     path('direcciones/', include('apps.direcciones.urls')),
     path('pedidos/', include('apps.pedidos.urls')),
     path('productos/', include('apps.productos.urls')),

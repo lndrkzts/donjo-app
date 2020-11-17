@@ -32,7 +32,7 @@ class Tarjeta(models.Model):
     objects = TarjetaManager()
 
     def __str__(self):
-        return self.card_id
+        return self.id_tarjeta
 
     def update_principal(self, principal):
         self.principal = principal

@@ -39,7 +39,13 @@
                     <tr>
                         <td>Descuento cupón:</td>
                         <td>
-                            <span class="text-success">-</span>
+                            <span id='descuento-cupon' class="text-danger">
+                                {% if pedido.cupon %}
+                                    ${{ pedido.cupon.descuento }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </span>
                         </td>
                     </tr>
                 </tbody>
@@ -49,7 +55,7 @@
             <hr>
             <div class="font-weight-bold">
                 Total:
-                <div class="d-inline-block text-success" id="order-total">
+                <div class="d-inline-block text-success" id="pedido-total">
                     ${{ pedido.total }}
                 </div>
             </div>

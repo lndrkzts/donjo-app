@@ -1,0 +1,50 @@
+<div class="font-weight-bold">
+    Cupón de descuento
+</div>
+<form id="cupon-form" action="{% url 'cupones:validar' %}">
+    <div class="input-group">
+        <input type="text" name="codigo" class="form-control" value="{{ pedido.cupon.codigo }}" placeholder="Ingrese cupón..." {% if pedido.cupon %} readonly {% endif %}>
+        <div class="input-group-append">
+            <button name="btnAplicar" class="btn btn-secondary {% if pedido.cupon %} invisible {% endif %}" type="submit">Aplicar</button>
+        </div>
+    </div>
+</form>
+<small id="cupon-mensaje" class="text-success">
+    {% if pedido.cupon %}
+    Código aplicado exitosamente
+    {% endif %}
+</small>
+
+{% block javascript %}
+    <script>
+        const form = document.getElementById('cupon-form');
+
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+
+            const codigo = this.codigo.value;
+            const url = this.action + '?codigo=' + codigo;
+            const spn_descuento = document.getElementById('descuento-cupon');
+            const div_total = document.getElementById('pedido-total');
+            const div_success = document.getElementById('cupon-mensaje');
+
+            fetch(url)
+            .then(response => response.json())
+            .then(response => {
+                if (response.valido === true) {
+                    spn_descuento.textContent = '$' + response.descuento;
+                    div_total.innerHTML = '$' + response.total;
+                    div_success.textContent = 'Código aplicado exitosamente';
+                    div_success.classList.remove('text-danger');
+                    div_success.classList.add('text-success');
+                    this.btnAplicar.classList.add('invisible');
+                    this.codigo.readOnly = true;
+                } else {
+                    div_success.innerHTML = 'Código no válido';
+                    div_success.classList.remove('text-success');
+                    div_success.classList.add('text-danger');
+                }
+            });
+        });
+    </script>
+{% endblock javascript %}

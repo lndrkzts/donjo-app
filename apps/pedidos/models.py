@@ -5,6 +5,7 @@ from django.db import models
 from django.db.models.signals import pre_save, post_save, m2m_changed
 
 from apps.carritos.models import Carrito
+from apps.cupones.models import Cupon
 from apps.direcciones.models import Direccion
 from apps.tarjetas.models import Tarjeta
 from apps.usuarios.models import User
@@ -21,13 +22,17 @@ class Pedido(models.Model):
     total = models.DecimalField(max_digits=12, decimal_places=2)
     direccion_envio = models.ForeignKey(Direccion, null=True, blank=True, on_delete=models.CASCADE)
     tarjeta = models.ForeignKey(Tarjeta, null=True, blank=True, on_delete=models.CASCADE)
+    cupon = models.ForeignKey(Cupon, null=True, blank=True, on_delete=models.CASCADE)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.id_pedido
 
+    def get_descuento(self):
+        return self.cupon.descuento if self.cupon else 0
+
     def get_total(self):
-        return self.carrito.total + self.costo_envio
+        return self.carrito.total + self.costo_envio - decimal.Decimal(self.get_descuento())
 
     def actualizar_total(self):
         self.total = self.get_total()
@@ -69,6 +74,12 @@ class Pedido(models.Model):
     def eliminar(self):
         self.estado = Estado.ELIMINADO
         self.save()
+    
+    def aplicar_cupon(self, cupon):
+        self.cupon = cupon
+        self.save()
+        self.actualizar_total()
+        cupon.marcar_usado()
 
 
 def set_id_pedido(sender, instance, *args, **kwargs):
