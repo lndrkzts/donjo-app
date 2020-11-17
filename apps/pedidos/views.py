@@ -127,7 +127,7 @@ def confirmar(request, pedido):
         return redirect('pedidos:direccion')
 
     if pedido.tarjeta is None:
-        return redirect('pedidos:tarjeta')
+        return redirect('pedidos:tarjeta') 
 
     if pedido.total < 400:
         messages.error(request, 'El total de la compra debe ser de al menos de $400 incluidos los descuentos y promociones')
@@ -137,7 +137,8 @@ def confirmar(request, pedido):
         'carrito': pedido.carrito,
         'pedido': pedido,
         'direccion': pedido.direccion_envio,
-        'tarjeta': pedido.tarjeta
+        'tarjeta': pedido.tarjeta,
+        'ultimo_paso': True
     })
 
 
