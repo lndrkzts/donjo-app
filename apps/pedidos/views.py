@@ -123,8 +123,14 @@ def confirmar(request, pedido):
     if not pedido.carrito.productos.exists():
         return redirect('carritos:carrito')
 
-    if  pedido.direccion_envio is None:
+    if pedido.direccion_envio is None:
         return redirect('pedidos:direccion')
+
+    if pedido.tarjeta is None:
+        return redirect('pedidos:tarjeta')
+
+    if pedido.total < 400:
+        messages.error(request, 'El total de la compra debe ser de al menos de $400 incluidos los descuentos y promociones')
 
     return render(request, 'pedidos/confirmar.html', {
         'breadcrumb': breadcrumb(direccion=True, tarjeta=True, confirmacion=True),
