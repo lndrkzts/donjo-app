@@ -25,7 +25,6 @@ class Producto(models.Model):
     imagen = models.ImageField(upload_to='productos/', blank=False, null=False)
     slug = models.SlugField(blank=False, null=False, unique=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-    fecha_pago = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.titulo
