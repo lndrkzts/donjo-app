@@ -38,7 +38,11 @@
                     Enviado a:
                 </div>
                 <div>
-                    -
+                    {% if pedido.mostrar_direccion %}
+                        {{ pedido.direccion_envio.direccion }}
+                    {% else%}
+                        -
+                    {% endif %}
                 </div>
             </div>
             <div class="col-2">

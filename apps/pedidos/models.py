@@ -91,6 +91,10 @@ class Pedido(models.Model):
     def setear_como_pago(self):
         self.estado = Estado.PAGO
         self.save()
+    
+    def mostrar_direccion(self):
+        estados_invalidos = [Estado.CREADO, Estado.CANCELADO, Estado.ELIMINADO]
+        return self.estado not in estados_invalidos
 
 
 def set_id_pedido(sender, instance, *args, **kwargs):
