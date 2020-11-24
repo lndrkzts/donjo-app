@@ -7,6 +7,7 @@ from django.views.generic.list import ListView
 from .decorators import get_carrito_and_pedido
 from .utils import breadcrumb, eliminar_pedido_session
 
+from apps.cargos.models import Cargo
 from apps.direcciones.models import Direccion
 from apps.tarjetas.models import Tarjeta
 
@@ -154,3 +155,23 @@ def cancelar(request, pedido):
     messages.success(request, 'El pedido ha sido cancelado. Puede volver a crear uno nuevo.')
 
     return redirect('index')
+
+
+@login_required(login_url='usuarios:iniciar_sesion')
+@get_carrito_and_pedido
+def completar(request, pedido):
+    if request.user.id != pedido.usuario.id:
+        return redirect('carritos:carrito')
+
+    cargo = Cargo.objects.crear(pedido)
+
+    if cargo:
+        pedido.setear_como_pago()
+        eliminar_pedido_session(request)
+        eliminar_carrito_session(request)
+        messages.success(request, 'El pedido ha sido pagado. Un empleado comenzará a prepararlo enseguida. Será notificado al e-mail {}'.format(request.user.email))
+        return redirect('index')
+    else:
+        messages.error(request, 'Ocurrió un error al realizar el pago, por favor intente nuevamente en unos instantes')
+        return redirect('carritos:carrito')
+

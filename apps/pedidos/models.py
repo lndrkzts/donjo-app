@@ -1,6 +1,8 @@
 import decimal
 import uuid
 
+from datetime import datetime
+
 from django.db import models
 from django.db.models.signals import pre_save, post_save, m2m_changed
 
@@ -27,6 +29,11 @@ class Pedido(models.Model):
 
     def __str__(self):
         return self.id_pedido
+
+    @property
+    def descripcion(self):
+        fecha = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        return 'Compra realizada el día {0} mediante el pedido {1}.'.format(fecha, self.id_pedido)
 
     def get_descuento(self):
         return self.cupon.descuento if self.cupon else 0
@@ -80,6 +87,10 @@ class Pedido(models.Model):
         self.save()
         self.actualizar_total()
         cupon.marcar_usado()
+    
+    def setear_como_pago(self):
+        self.estado = Estado.PAGO
+        self.save()
 
 
 def set_id_pedido(sender, instance, *args, **kwargs):

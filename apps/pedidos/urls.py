@@ -15,4 +15,5 @@ urlpatterns = [
     path('set_tarjeta/<int:pk>', views.set_tarjeta, name='set_tarjeta'),
     path('confirmar', views.confirmar, name='confirmar'),
     path('cancelar', views.cancelar, name="cancelar"),
+    path('completar', views.completar, name="completar"),
 ]

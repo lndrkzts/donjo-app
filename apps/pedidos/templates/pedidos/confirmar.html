@@ -42,7 +42,7 @@
         </div>
     </div>
     <div class="col-md-3">
-        {% url '#' as siguiente_url %}
+        {% url 'pedidos:completar' as siguiente_url %}
         {% include 'pedidos/snippets/resumen.html' with siguiente_url=siguiente_url %}
     </div>
 {% endblock content%}
