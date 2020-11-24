@@ -1,3 +1,5 @@
+import threading
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -5,6 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
 
 from .decorators import get_carrito_and_pedido
+from .mails import Mail
 from .utils import breadcrumb, eliminar_pedido_session
 
 from apps.cargos.models import Cargo
@@ -167,6 +170,8 @@ def completar(request, pedido):
 
     if cargo:
         pedido.setear_como_pago()
+        thread = threading.Thread(target=Mail.enviar_mail_pedido_pago, args=(request.user,))
+        thread.start()        
         eliminar_pedido_session(request)
         eliminar_carrito_session(request)
         messages.success(request, 'El pedido ha sido pagado. Un empleado comenzará a prepararlo enseguida. Será notificado al e-mail {}'.format(request.user.email))
