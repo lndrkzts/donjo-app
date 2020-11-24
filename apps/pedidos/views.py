@@ -21,6 +21,7 @@ class PedidosListView(LoginRequiredMixin, ListView):
     login_url = 'usuarios:inicar_sesion'
     template_name = 'pedidos/pedidos.html'
     context_object_name = 'lista_pedidos'
+    paginate_by = 10
 
     def get_queryset(self): 
         return self.request.user.pedidos()
