@@ -14,8 +14,13 @@
     <div class="h5 font-weight-bold mt-4">
         Precio: <span class="text-success">${{ producto.precio }}</span>
     </div>
-    <div class="mt-4">
-        {% include 'carritos/snippets/agregar.html' %}
+    <div class="h5 font-weight-bold mt-4">
+        Stock: {{ producto.stock }}
     </div>
+    {% if producto.stock %}
+        <div class="mt-4">
+            {% include 'carritos/snippets/agregar.html' %}
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

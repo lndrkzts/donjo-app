@@ -21,6 +21,7 @@ class Producto(models.Model):
     peso = models.DecimalField(max_digits=8, decimal_places=2, blank=False, null=False)
     unidad_peso = models.CharField(max_length=50, choices=TipoUnidadPeso.choices, blank=False, null=False)
     precio = models.DecimalField(max_digits=8, decimal_places=2, blank=False, null=False)
+    stock = models.IntegerField(blank=False, null=False, default=0)
     oferta = models.BooleanField(default=False)
     imagen = models.ImageField(upload_to='productos/', blank=False, null=False)
     slug = models.SlugField(blank=False, null=False, unique=True)
@@ -28,6 +29,10 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.titulo
+    
+    def restar_stock(self, cantidad):
+        self.stock -= cantidad
+        self.save()
 
 
 def set_slug(sender, instance, *args, **kwargs):

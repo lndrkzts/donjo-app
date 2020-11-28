@@ -16,7 +16,6 @@ class ProductosEnOfertaListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['cantidad_productos'] = context['lista_productos'].count()
-        print(context)
         return context
 
 

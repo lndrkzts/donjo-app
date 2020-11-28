@@ -1,5 +1,6 @@
 import threading
 
+from django.db import transaction
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -32,6 +33,12 @@ class PedidosListView(LoginRequiredMixin, ListView):
 def pedido(request, pedido):
     if not pedido.carrito.productos.exists():
         return redirect('index')
+
+    stock_valido = pedido.carrito.verificar_stocks_suficientes()
+
+    if not stock_valido[0]:
+        messages.error(request, 'No hay suficiente stock de los productos: {}'.format(', '.join(str(x) for x in stock_valido[1])))
+        return redirect('carritos:carrito') 
 
     return render(request, 'pedidos/pedido.html', {
         'breadcrumb': breadcrumb(),
@@ -167,16 +174,27 @@ def completar(request, pedido):
     if request.user.id != pedido.usuario.id:
         return redirect('carritos:carrito')
 
+    stock_valido = pedido.carrito.verificar_stocks_suficientes()
+
+    if not stock_valido[0]:
+        messages.error(request, 'No hay suficiente stock de los productos: {}'.format(', '.join(str(x) for x in stock_valido[1])))
+        return redirect('carritos:carrito') 
+
     cargo = Cargo.objects.crear(pedido)
 
     if cargo:
-        pedido.setear_como_pago()
-        thread = threading.Thread(target=Mail.enviar_mail_pedido_pago, args=(request.user,))
-        thread.start()        
-        eliminar_pedido_session(request)
-        eliminar_carrito_session(request)
-        messages.success(request, 'El pedido ha sido pagado. Un empleado comenzará a prepararlo enseguida. Será notificado al e-mail {}'.format(request.user.email))
-        return redirect('index')
+        with transaction.atomic():
+            pedido.setear_como_pago()
+            pedido.restar_stock_productos_comprados()
+
+            thread = threading.Thread(target=Mail.enviar_mail_pedido_pago, args=(request.user,))
+            thread.start()       
+            
+            eliminar_pedido_session(request)
+            eliminar_carrito_session(request)
+
+            messages.success(request, 'El pedido ha sido pagado. Un empleado comenzará a prepararlo enseguida. Será notificado al e-mail {}'.format(request.user.email))
+            return redirect('index')
     else:
         messages.error(request, 'Ocurrió un error al realizar el pago, por favor intente nuevamente en unos instantes')
         return redirect('carritos:carrito')

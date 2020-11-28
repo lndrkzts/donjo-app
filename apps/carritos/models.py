@@ -43,6 +43,15 @@ class Carrito(models.Model):
         self.total = self.subtotal + (self.subtotal * decimal.Decimal(Carrito.COMISION / 100))
         self.save()
 
+    def verificar_stocks_suficientes(self):
+        productos_sin_stock = []
+
+        for carritoproducto in self.productos_relacionados():
+            if carritoproducto.cantidad > carritoproducto.producto.stock:
+                productos_sin_stock.append(carritoproducto.producto.titulo)
+        
+        return (len(productos_sin_stock) == 0, productos_sin_stock)
+
 
 class CarritoProductoManager(models.Manager):
     def crear_o_actualizar_cantidad(self, carrito, producto, cantidad=1):

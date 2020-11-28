@@ -95,6 +95,10 @@ class Pedido(models.Model):
     def mostrar_direccion(self):
         estados_invalidos = [Estado.CREADO, Estado.CANCELADO, Estado.ELIMINADO]
         return self.estado not in estados_invalidos
+    
+    def restar_stock_productos_comprados(self):
+        for carritoproducto in self.carrito.productos_relacionados():
+            carritoproducto.producto.restar_stock(carritoproducto.cantidad)
 
 
 def set_id_pedido(sender, instance, *args, **kwargs):

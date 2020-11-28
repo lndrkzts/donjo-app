@@ -1,6 +1,7 @@
 <form action="{% url 'carritos:agregar' %}" method="post">
     {% csrf_token %}
     <input type="hidden" name="id_producto" value="{{ producto.id }}">
+    <input type="hidden" id="hdnStock" value="{{ producto.stock }}">
     <div>
         <button type="button" class="col-1 btn btn-info d-inline" id="btnQuitar">-</button>
         <input type="text" value="1" class="col-1 form-control d-inline text-center" id="inpCantidad" name="inpCantidad" readonly>
@@ -16,9 +17,12 @@
     const btnAgregar = document.getElementById("btnAgregar");
     const btnQuitar = document.getElementById("btnQuitar");
     const inpCantidad = document.getElementById("inpCantidad");
+    const stock = document.getElementById("hdnStock").value;
 
     btnAgregar.addEventListener("click", () => {
-        inpCantidad.value = parseInt(inpCantidad.value) + 1;
+        console.log(stock);
+        let value = parseInt(inpCantidad.value) + 1;
+        if (value <= stock) inpCantidad.value = value;
     });
 
     btnQuitar.addEventListener("click", () => {

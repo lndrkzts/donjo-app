@@ -6,9 +6,10 @@
     <p class="card-text">{{ producto.peso }} {{ producto.unidad_peso }} </p>
     <p class="card-text">
       <span class="text-success">
-        ${{ producto.precio}}
+        ${{ producto.precio }}
       </span>
     </p>
+    <p class="card-text">Stock: {{ producto.stock }}</p>
   </div>
   <div class="card-footer">
     <a href="{% url 'productos:producto' producto.slug %}" class="btn btn-primary">Ver más</a>
