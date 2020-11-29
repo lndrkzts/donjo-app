@@ -16,4 +16,5 @@ urlpatterns = [
     path('confirmar', views.confirmar, name='confirmar'),
     path('cancelar', views.cancelar, name="cancelar"),
     path('completar', views.completar, name="completar"),
+    path('pendientes', views.PedidosPendientesListView.as_view(), name="pendientes"),
 ]

@@ -13,6 +13,8 @@ from .utils import breadcrumb, eliminar_pedido_session
 
 from apps.cargos.models import Cargo
 from apps.direcciones.models import Direccion
+from apps.pedidos.models import Pedido
+from apps.pedidos.enums import Estado as EstadoPedido
 from apps.tarjetas.models import Tarjeta
 
 from apps.carritos.utils import eliminar_carrito_session
@@ -26,6 +28,16 @@ class PedidosListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self): 
         return self.request.user.pedidos()
+
+
+class PedidosPendientesListView(LoginRequiredMixin, ListView):
+    login_url = 'usuarios:inicar_sesion'
+    template_name = 'pedidos/pedidos_pendientes.html'
+    context_object_name = 'lista_pedidos'
+    paginate_by = 10
+
+    def get_queryset(self): 
+        return Pedido.objects.filter(estado=EstadoPedido.PAGO)
 
 
 @login_required(login_url='usuarios:iniciar_sesion')

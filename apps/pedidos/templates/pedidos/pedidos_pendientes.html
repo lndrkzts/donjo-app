@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if lista_pedidos %}
+
+<div class="col-12">
+    <div class="h3 mt-3 mb-4">
+        Pedidos pendientes
+    </div>
+    <div>
+        {% for pedido in lista_pedidos %}
+        {% include 'pedidos/snippets/pedido.html' %}
+        {% endfor %}
+        {% include 'snippets/paginator.html' %}
+    </div>
+</div>
+
+{% else %}
+
+<div class="col-12 text-center">
+    <p class="h3">No hay pedidos pendientes</p>
+</div>
+
+{% endif %}
+{% endblock content %}

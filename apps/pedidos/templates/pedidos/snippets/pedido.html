@@ -47,7 +47,16 @@
             </div>
             <div class="col-2">
                 <div class="font-weight-bold">
-                    <a href="#">Ver detalles</a>
+                    <ul>
+                        <li>
+                            <a href="#">Ver detalles</a>
+                        </li>
+                        {% if request.user.tipo_usuario == 'EMPLEADO' and pedido.estado == 'Pago' %}
+                        <li>
+                            <a href="#">Tomar pedido</a>
+                        </li>
+                        {% endif %}
+                    </ul>
                 </div>
             </div>
         </div>
