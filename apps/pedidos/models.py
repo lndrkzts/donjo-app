@@ -96,6 +96,10 @@ class Pedido(models.Model):
     def setear_en_preparacion(self):
         self.estado = Estado.EN_PREPARACION
         self.save()
+
+    def setear_preparado(self):
+        self.estado = Estado.PREPARADO
+        self.save()
     
     def mostrar_direccion(self):
         estados_invalidos = [Estado.CREADO, Estado.CANCELADO, Estado.ELIMINADO]

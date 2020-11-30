@@ -73,7 +73,7 @@ class PedidosAsignadosListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self): 
-        return Pedido.objects.filter(estado=EstadoPedido.EN_PREPARACION, empleado_id=self.request.user.id)
+        return Pedido.objects.filter(estado__in=[EstadoPedido.EN_PREPARACION, EstadoPedido.PREPARADO], empleado_id=self.request.user.id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -265,3 +265,21 @@ def asignar_empleado(request, pk):
 
     messages.success(request, 'Se te ha asignado el pedido')
     return redirect('pedidos:pendientes')
+
+
+@login_required(login_url='usuarios:iniciar_sesion')
+def preparado(request, pk):
+    if request.user.tipo_usuario != TipoUsuario.EMPLEADO:
+        messages.error(request, 'No tiene permisos para realizar la acción')
+        return redirect('index')
+    
+    pedido = get_object_or_404(Pedido, pk=pk)
+
+    if pedido.estado != EstadoPedido.EN_PREPARACION:
+        messages.error(request, 'El pedido no se encuentra en el estado correcto')
+        return redirect('index')
+
+    pedido.setear_preparado()
+
+    messages.success(request, 'El pedido se marcó como preparado')
+    return redirect('pedidos:asignados')

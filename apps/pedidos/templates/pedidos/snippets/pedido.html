@@ -53,10 +53,16 @@
                         <li>
                             <a href="{% url 'pedidos:detalle' pedido.id %}">Ver detalles</a>
                         </li>
-                        {% if request.user.tipo_usuario == 'EMPLEADO' and pedido.estado == 'Pago' %}
-                        <li>
-                            <a href="{% url 'pedidos:asignar_empleado' pedido.id %}">Tomar pedido</a>
-                        </li>
+                        {% if request.user.tipo_usuario == 'EMPLEADO' %}
+                            {% if pedido.estado == 'Pago' %}
+                            <li>
+                                <a href="{% url 'pedidos:asignar_empleado' pedido.id %}">Tomar pedido</a>
+                            </li>
+                            {% elif pedido.estado == 'En Preparacion' %}
+                            <li>
+                                <a href="{% url 'pedidos:preparado' pedido.id %}">Marcar como preparado</a>
+                            </li>
+                            {% endif %}
                         {% endif %}
                     </ul>
                 </div>
