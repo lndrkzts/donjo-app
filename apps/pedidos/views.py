@@ -65,7 +65,6 @@ class PedidosPendientesListView(LoginRequiredMixin, ListView):
         return context
 
 
-
 class PedidosAsignadosListView(LoginRequiredMixin, ListView):
     login_url = 'usuarios:inicar_sesion'
     template_name = 'pedidos/pedidos_asignados.html'
@@ -74,6 +73,21 @@ class PedidosAsignadosListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self): 
         return Pedido.objects.filter(estado__in=[EstadoPedido.EN_PREPARACION, EstadoPedido.PREPARADO], empleado_id=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['vista_empleado'] = True
+        return context
+
+
+class PedidosEnviadosListView(LoginRequiredMixin, ListView):
+    login_url = 'usuarios:inicar_sesion'
+    template_name = 'pedidos/pedidos_enviados.html'
+    context_object_name = 'lista_pedidos'
+    paginate_by = 10
+
+    def get_queryset(self): 
+        return Pedido.objects.filter(estado=EstadoPedido.ENVIADO, empleado_id=self.request.user.id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -275,6 +289,10 @@ def preparado(request, pk):
     
     pedido = get_object_or_404(Pedido, pk=pk)
 
+    if pedido.empleado != request.user:
+        messages.error(request, 'El pedido no está asignado a usted')
+        return redirect('index')
+
     if pedido.estado != EstadoPedido.EN_PREPARACION:
         messages.error(request, 'El pedido no se encuentra en el estado correcto')
         return redirect('index')
@@ -283,3 +301,25 @@ def preparado(request, pk):
 
     messages.success(request, 'El pedido se marcó como preparado')
     return redirect('pedidos:asignados')
+
+
+@login_required(login_url='usuarios:iniciar_sesion')
+def enviado(request, pk):
+    if request.user.tipo_usuario != TipoUsuario.EMPLEADO:
+        messages.error(request, 'No tiene permisos para realizar la acción')
+        return redirect('index')
+    
+    pedido = get_object_or_404(Pedido, pk=pk)
+
+    if pedido.empleado != request.user:
+        messages.error(request, 'El pedido no está asignado a usted')
+        return redirect('index')
+
+    if pedido.estado != EstadoPedido.PREPARADO:
+        messages.error(request, 'El pedido no se encuentra en el estado correcto')
+        return redirect('index')
+
+    pedido.setear_enviado()
+
+    messages.success(request, 'El pedido se marcó como enviado')
+    return redirect('pedidos:enviados')

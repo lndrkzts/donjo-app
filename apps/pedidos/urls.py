@@ -21,4 +21,6 @@ urlpatterns = [
     path('pendientes/asignar_empleado/<int:pk>', views.asignar_empleado, name="asignar_empleado"),
     path('asignados', views.PedidosAsignadosListView.as_view(), name="asignados"),
     path('asignados/preparado/<int:pk>', views.preparado, name="preparado"),
+    path('asignados/enviado/<int:pk>', views.enviado, name="enviado"),
+    path('enviados', views.PedidosEnviadosListView.as_view(), name="enviados"),
 ]

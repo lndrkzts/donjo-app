@@ -2,6 +2,7 @@
 {% url 'direcciones:direcciones' as direcciones %}
 {% url 'pedidos:pedidos' as pedidos %}
 {% url 'pedidos:asignados' as pedidos_asignados %}
+{% url 'pedidos:enviados' as pedidos_enviados %}
 {% url 'pedidos:pendientes' as pedidos_pendientes %}
 {% url 'productos:ofertas' as ofertas %}
 {% url 'tarjetas:tarjetas' as tarjetas %}
@@ -81,7 +82,7 @@
         </a>
       </li>
       <li class="navbar-item">
-        <a href="#" class="nav-link">
+        <a href="{{ pedidos_enviados }}" class="nav-link">
           <span class="fas fa-shipping-fast"></span>
           Pedidos Enviados
         </a>
