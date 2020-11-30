@@ -1,6 +1,7 @@
 {% url 'carritos:carrito' as carrito %}
 {% url 'direcciones:direcciones' as direcciones %}
 {% url 'pedidos:pedidos' as pedidos %}
+{% url 'pedidos:asignados' as pedidos_asignados %}
 {% url 'pedidos:pendientes' as pedidos_pendientes %}
 {% url 'productos:ofertas' as ofertas %}
 {% url 'tarjetas:tarjetas' as tarjetas %}
@@ -69,13 +70,13 @@
       {% elif request.user.is_authenticated or request.user.tipo_usuario == 'EMPLEADO'  %}
       <li class="navbar-item">
         <a href="{{ pedidos_pendientes }}" class="nav-link {% if request.path == pedidos_pendientes %} active {% endif %}">
-          <span class="fas fa-shipping-fast"></span>
+          <span class="fas fa-box-open"></span>
           Pedidos Pendientes
         </a>
       </li>
       <li class="navbar-item">
-        <a href="#" class="nav-link">
-          <span class="fas fa-shipping-fast"></span>
+        <a href="{{ pedidos_asignados }}" class="nav-link">
+          <span class="fas fa-box"></span>
           Pedidos Asignados
         </a>
       </li>
