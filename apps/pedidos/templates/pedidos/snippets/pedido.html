@@ -25,6 +25,7 @@
                     {{ pedido.fecha_pago }}
                 </div>
             </div>
+            {% if not vista_empleado %}
             <div class="col-2">
                 <div class="font-weight-bold">
                     Total:
@@ -33,6 +34,7 @@
                     ${{ pedido.total }}
                 </div>
             </div>
+            {% endif %}
             <div class="col-2">
                 <div class="font-weight-bold">
                     Enviado a:

@@ -59,6 +59,12 @@ class PedidosPendientesListView(LoginRequiredMixin, ListView):
     def get_queryset(self): 
         return Pedido.objects.filter(estado=EstadoPedido.PAGO)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['vista_empleado'] = True
+        return context
+
+
 
 class PedidosAsignadosListView(LoginRequiredMixin, ListView):
     login_url = 'usuarios:inicar_sesion'
@@ -68,6 +74,11 @@ class PedidosAsignadosListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self): 
         return Pedido.objects.filter(estado=EstadoPedido.EN_PREPARACION, empleado_id=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['vista_empleado'] = True
+        return context
 
 
 @login_required(login_url='usuarios:iniciar_sesion')
