@@ -16,6 +16,7 @@ from apps.direcciones.models import Direccion
 from apps.pedidos.models import Pedido
 from apps.pedidos.enums import Estado as EstadoPedido
 from apps.tarjetas.models import Tarjeta
+from apps.usuarios.models import TipoUsuario
 
 from apps.carritos.utils import eliminar_carrito_session
 
@@ -196,7 +197,7 @@ def completar(request, pedido):
 
     if cargo:
         with transaction.atomic():
-            pedido.setear_como_pago()
+            pedido.setear_pago()
             pedido.restar_stock_productos_comprados()
 
             thread = threading.Thread(target=Mail.enviar_mail_pedido_pago, args=(request.user,))
@@ -211,3 +212,16 @@ def completar(request, pedido):
         messages.error(request, 'Ocurrió un error al realizar el pago, por favor intente nuevamente en unos instantes')
         return redirect('carritos:carrito')
 
+
+@login_required(login_url='usuarios:iniciar_sesion')
+def asignar_empleado(request, pk):
+    if request.user.tipo_usuario != TipoUsuario.EMPLEADO:
+        messages.success(request, 'No tiene permisos para realizar la acción')
+        return redirect('index')
+    
+    pedido = get_object_or_404(Pedido, pk=pk)
+    pedido.asignar_empleado(request.user)
+    pedido.setear_en_preparacion()
+
+    messages.success(request, 'Se te ha asignado el pedido')
+    return redirect('pedidos:pendientes')

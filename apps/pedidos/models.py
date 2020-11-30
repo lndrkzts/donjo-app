@@ -17,7 +17,8 @@ from .enums import Estado
 
 class Pedido(models.Model):
     id_pedido = models.CharField(max_length=100, null=False, blank=False, unique=True)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pedido_cliente')
+    empleado = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pedido_empleado', null=True, blank=True)
     carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE)
     estado = models.CharField(max_length=50, choices=Estado.choices, default=Estado.CREADO)
     costo_envio = models.DecimalField(default=0, max_digits=12, decimal_places=2)
@@ -88,8 +89,12 @@ class Pedido(models.Model):
         self.actualizar_total()
         cupon.marcar_usado()
     
-    def setear_como_pago(self):
+    def setear_pago(self):
         self.estado = Estado.PAGO
+        self.save()
+
+    def setear_en_preparacion(self):
+        self.estado = Estado.EN_PREPARACION
         self.save()
     
     def mostrar_direccion(self):
@@ -99,6 +104,10 @@ class Pedido(models.Model):
     def restar_stock_productos_comprados(self):
         for carritoproducto in self.carrito.productos_relacionados():
             carritoproducto.producto.restar_stock(carritoproducto.cantidad)
+    
+    def asignar_empleado(self, empleado):
+        self.empleado = empleado
+        self.save()
 
 
 def set_id_pedido(sender, instance, *args, **kwargs):

@@ -53,7 +53,7 @@
                         </li>
                         {% if request.user.tipo_usuario == 'EMPLEADO' and pedido.estado == 'Pago' %}
                         <li>
-                            <a href="#">Tomar pedido</a>
+                            <a href="{% url 'pedidos:asignar_empleado' pedido.id %}">Tomar pedido</a>
                         </li>
                         {% endif %}
                     </ul>
