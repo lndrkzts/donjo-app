@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 from .decorators import get_carrito_and_pedido
 from .mails import Mail
@@ -19,6 +20,24 @@ from apps.tarjetas.models import Tarjeta
 from apps.usuarios.models import TipoUsuario
 
 from apps.carritos.utils import eliminar_carrito_session
+
+
+class PedidoDetailView(LoginRequiredMixin, DetailView):
+    login_url = 'usuarios:inicar_sesion'
+    template_name = 'pedidos/detalle.html'
+    context_object_name = 'pedido'
+
+    def get_pk(self):
+        return self.kwargs['pk']
+
+    def get_queryset(self):
+        return Pedido.objects.filter(id=self.get_pk())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['carrito'] = context['pedido'].carrito
+        context['modo_vista'] = True
+        return context
 
 
 class PedidosListView(LoginRequiredMixin, ListView):

@@ -9,8 +9,10 @@
                     <th scope="col"></th>
                     <th scope="col">Producto</th>
                     <th scope="col">Cantidad</th>
+                    {% if not modo_vista %}
                     <th scope="col">Precio Unitario</th>
                     <th scope="col">Precio Total</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -27,9 +29,12 @@
                     </th>
                     <th>
                         <a href="{% url 'productos:producto' producto.slug %}">{{ producto.titulo }}</a>
+                        {% if not modo_vista %}
                         {% include 'carritos/snippets/eliminar.html' %}
+                        {% endif %}
                     </th>
                     <th>{{ cp.cantidad }}</th>
+                    {% if not modo_vista %}
                     <th>
                         <span class="font-weight-bold">${{ producto.precio }}</span>
                     </th>
@@ -38,6 +43,7 @@
                             class="font-weight-bold text-success">${{ producto.precio | multiplicar:cp.cantidad }}
                         </span>
                     </th>
+                    {% endif %}
                 </tr>
                 {% endwith %}
                 {% endfor %}

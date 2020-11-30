@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="col-md-12">
+        <div class="h3 mt-3 mb-4">
+            Detalle del pedido
+        </div>
+        <div class="mt-3">
+            {% include 'carritos/snippets/tabla_productos.html' %}
+        </div>
+    </div>
+{% endblock content %}

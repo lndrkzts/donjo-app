@@ -40,7 +40,7 @@ class User(AbstractUser):
         return '{} {}'.format(self.first_name, self.last_name)
 
     def pedidos(self):
-        return self.pedido_set.exclude(estado=Estado.ELIMINADO).order_by('-id')
+        return self.pedido_cliente.exclude(estado=Estado.ELIMINADO).order_by('-id')
 
     def tiene_direccion_principal(self):
         return self.direccion_principal is not None
