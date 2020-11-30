@@ -14,4 +14,4 @@ def index(request):
         return redirect('pedidos:pendientes') 
 
     elif request.user.tipo_usuario == TipoUsuario.ADMINISTRADOR:
-        return render(request, 'index_administrador.html', {})
+        return redirect('/admin') 
