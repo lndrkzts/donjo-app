@@ -105,6 +105,10 @@ class Pedido(models.Model):
         self.estado = Estado.ENVIADO
         self.save()
     
+    def setear_entregado(self):
+        self.estado = Estado.ENTREGADO
+        self.save()
+
     def mostrar_direccion(self):
         estados_invalidos = [Estado.CREADO, Estado.CANCELADO, Estado.ELIMINADO]
         return self.estado not in estados_invalidos

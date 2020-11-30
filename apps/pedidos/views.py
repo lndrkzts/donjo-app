@@ -95,6 +95,21 @@ class PedidosEnviadosListView(LoginRequiredMixin, ListView):
         return context
 
 
+class PedidosEntregadosListView(LoginRequiredMixin, ListView):
+    login_url = 'usuarios:inicar_sesion'
+    template_name = 'pedidos/pedidos_entregados.html'
+    context_object_name = 'lista_pedidos'
+    paginate_by = 10
+
+    def get_queryset(self): 
+        return Pedido.objects.filter(estado=EstadoPedido.ENTREGADO, empleado_id=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['vista_empleado'] = True
+        return context
+
+
 @login_required(login_url='usuarios:iniciar_sesion')
 @get_carrito_and_pedido
 def pedido(request, pedido):
@@ -323,3 +338,25 @@ def enviado(request, pk):
 
     messages.success(request, 'El pedido se marcó como enviado')
     return redirect('pedidos:enviados')
+
+
+@login_required(login_url='usuarios:iniciar_sesion')
+def entregado(request, pk):
+    if request.user.tipo_usuario != TipoUsuario.EMPLEADO:
+        messages.error(request, 'No tiene permisos para realizar la acción')
+        return redirect('index')
+    
+    pedido = get_object_or_404(Pedido, pk=pk)
+
+    if pedido.empleado != request.user:
+        messages.error(request, 'El pedido no está asignado a usted')
+        return redirect('index')
+
+    if pedido.estado != EstadoPedido.ENVIADO:
+        messages.error(request, 'El pedido no se encuentra en el estado correcto')
+        return redirect('index')
+
+    pedido.setear_entregado()
+
+    messages.success(request, 'El pedido se marcó como entregado')
+    return redirect('pedidos:entregados')

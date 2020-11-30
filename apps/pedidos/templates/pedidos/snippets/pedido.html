@@ -66,6 +66,10 @@
                             <li>
                                 <a href="{% url 'pedidos:enviado' pedido.id %}">Marcar como enviado</a>
                             </li>
+                            {% elif pedido.estado == 'Enviado' %}
+                            <li>
+                                <a href="{% url 'pedidos:entregado' pedido.id %}">Marcar como entregado</a>
+                            </li>
                             {% endif %}
                         {% endif %}
                     </ul>

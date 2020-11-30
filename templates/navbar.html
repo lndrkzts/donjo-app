@@ -2,6 +2,7 @@
 {% url 'direcciones:direcciones' as direcciones %}
 {% url 'pedidos:pedidos' as pedidos %}
 {% url 'pedidos:asignados' as pedidos_asignados %}
+{% url 'pedidos:entregados' as pedidos_entregados %}
 {% url 'pedidos:enviados' as pedidos_enviados %}
 {% url 'pedidos:pendientes' as pedidos_pendientes %}
 {% url 'productos:ofertas' as ofertas %}
@@ -76,15 +77,21 @@
         </a>
       </li>
       <li class="navbar-item">
-        <a href="{{ pedidos_asignados }}" class="nav-link">
+        <a href="{{ pedidos_asignados }}" class="nav-link {% if request.path == pedidos_asignados %} active {% endif %}">
           <span class="fas fa-box"></span>
           Pedidos Asignados
         </a>
       </li>
       <li class="navbar-item">
-        <a href="{{ pedidos_enviados }}" class="nav-link">
+        <a href="{{ pedidos_enviados }}" class="nav-link {% if request.path == pedidos_enviados %} active {% endif %}">
           <span class="fas fa-shipping-fast"></span>
           Pedidos Enviados
+        </a>
+      </li>
+      <li class="navbar-item">
+        <a href="{{ pedidos_entregados }}" class="nav-link {% if request.path == pedidos_entregados %} active {% endif %}">
+          <span class="fas fa-shipping-fast"></span>
+          Pedidos Entregados
         </a>
       </li>
       {% endif %}
