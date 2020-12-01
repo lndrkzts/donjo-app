@@ -292,6 +292,9 @@ def asignar_empleado(request, pk):
     pedido.asignar_empleado(request.user)
     pedido.setear_en_preparacion()
 
+    thread = threading.Thread(target=Mail.enviar_mail_pedido_en_preparacion, args=(pedido.usuario,))
+    thread.start()
+
     messages.success(request, 'Se te ha asignado el pedido')
     return redirect('pedidos:pendientes')
 
@@ -313,6 +316,9 @@ def preparado(request, pk):
         return redirect('index')
 
     pedido.setear_preparado()
+
+    thread = threading.Thread(target=Mail.enviar_mail_pedido_preparado, args=(pedido.usuario,))
+    thread.start()
 
     messages.success(request, 'El pedido se marcó como preparado')
     return redirect('pedidos:asignados')
@@ -336,6 +342,9 @@ def enviado(request, pk):
 
     pedido.setear_enviado()
 
+    thread = threading.Thread(target=Mail.enviar_mail_pedido_enviado, args=(pedido.usuario,))
+    thread.start()
+
     messages.success(request, 'El pedido se marcó como enviado')
     return redirect('pedidos:enviados')
 
@@ -357,6 +366,9 @@ def entregado(request, pk):
         return redirect('index')
 
     pedido.setear_entregado()
+
+    thread = threading.Thread(target=Mail.enviar_mail_pedido_entregado, args=(pedido.usuario,))
+    thread.start()
 
     messages.success(request, 'El pedido se marcó como entregado')
     return redirect('pedidos:entregados')
