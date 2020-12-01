@@ -51,6 +51,8 @@
           Mi Carrito
         </a>
       </li>
+      {% endif %}
+      {% if request.user.is_authenticated and request.user.tipo_usuario == 'CLIENTE' %}
       <li class="navbar-item">
         <a href="{{ direcciones }}" class="nav-link {% if request.path == direcciones %} active {% endif %}">
           <span class="fas fa-location-arrow"></span>
@@ -69,7 +71,8 @@
           Mis Tarjetas
         </a>
       </li>
-      {% elif request.user.is_authenticated or request.user.tipo_usuario == 'EMPLEADO'  %}
+      {% endif %}
+      {% if request.user.is_authenticated and request.user.tipo_usuario == 'EMPLEADO' %}
       <li class="navbar-item">
         <a href="{{ pedidos_pendientes }}" class="nav-link {% if request.path == pedidos_pendientes %} active {% endif %}">
           <span class="fas fa-box-open"></span>
