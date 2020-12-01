@@ -22,7 +22,11 @@
                     Fecha pago:
                 </div>
                 <div>
-                    {{ pedido.fecha_pago }}
+                    {% if pedido.fecha_pago %}
+                        {{ pedido.fecha_pago }}
+                    {% else %}
+                        -
+                    {% endif %}
                 </div>
             </div>
             {% if not vista_empleado %}

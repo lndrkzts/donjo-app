@@ -266,7 +266,7 @@ def completar(request, pedido):
         cargo = Cargo.objects.crear(pedido)
 
         with transaction.atomic():
-            pedido.setear_pago()
+            pedido.setear_pago(cargo.fecha_creacion)
             pedido.restar_stock_productos_comprados()
 
             thread = threading.Thread(target=Mail.enviar_mail_pedido_pago, args=(request.user,))

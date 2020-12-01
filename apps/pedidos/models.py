@@ -27,6 +27,7 @@ class Pedido(models.Model):
     tarjeta = models.ForeignKey(Tarjeta, null=True, blank=True, on_delete=models.CASCADE)
     cupon = models.ForeignKey(Cupon, null=True, blank=True, on_delete=models.CASCADE)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_pago = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.id_pedido
@@ -89,8 +90,9 @@ class Pedido(models.Model):
         self.actualizar_total()
         cupon.marcar_usado()
     
-    def setear_pago(self):
+    def setear_pago(self, fecha_pago):
         self.estado = Estado.PAGO
+        self.fecha_pago = fecha_pago
         self.save()
 
     def setear_en_preparacion(self):
