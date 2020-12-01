@@ -261,10 +261,10 @@ def completar(request, pedido):
     if not stock_valido[0]:
         messages.error(request, 'No hay suficiente stock de los productos: {}'.format(', '.join(str(x) for x in stock_valido[1])))
         return redirect('carritos:carrito') 
+    
+    try:
+        cargo = Cargo.objects.crear(pedido)
 
-    cargo = Cargo.objects.crear(pedido)
-
-    if cargo:
         with transaction.atomic():
             pedido.setear_pago()
             pedido.restar_stock_productos_comprados()
@@ -277,8 +277,8 @@ def completar(request, pedido):
 
             messages.success(request, 'El pedido ha sido pagado. Un empleado comenzará a prepararlo enseguida. Será notificado al e-mail {}'.format(request.user.email))
             return redirect('index')
-    else:
-        messages.error(request, 'Ocurrió un error al realizar el pago, por favor intente nuevamente en unos instantes')
+    except:
+        messages.error(request, 'Ocurrió un error al realizar el pago, por favor intente nuevamente en unos instantes. Si el error persiste, pruebe con otra tarjeta.')
         return redirect('carritos:carrito')
 
 
